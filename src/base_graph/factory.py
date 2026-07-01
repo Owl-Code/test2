@@ -37,6 +37,8 @@ from .expert_routing_hybrid import create_emergence_gated_router, RoutingDecisio
 
 from .trophallaxis_planner_handoff import create_trophallaxis_handoff_hook, TrophallaxisTransfer
 
+from .textual_dashboard import render_textual_dashboard   # Phase 3 integration
+
 
 @dataclass
 class SwarmPosture:
@@ -65,8 +67,12 @@ class HybridControlSwarmGraph:
     """
     Production-grade HybridControlSwarmGraph with Phase 1 & 2 capabilities wired in.
 
-    This is a functional skeleton that can be extended with the full core primitives
-    (EmergenceNode, AdaptiveEdge, ProvenanceChain, etc.) later.
+    This is the core Graph Swarm Harness. It integrates:
+    - Dynamic skill registry
+    - SHA-256 fs-graph checkpointing
+    - Emergence-gated expert routing
+    - Trophallaxis-aware handoffs
+    - Textual dashboard rendering (Phase 3)
     """
 
     def __init__(self, name: str = "recommended-swarm", num_agents: int = 512):
@@ -166,6 +172,10 @@ class HybridControlSwarmGraph:
         }
         return health
 
+    def render_dashboard(self, width: int = 72) -> str:
+        """Render a textual dashboard for this swarm (integrates Phase 3 textual_dashboard)."""
+        return render_textual_dashboard(self, width=width)
+
     def add_node(self, node_id: str, **kwargs) -> EmergenceNode:
         """Add a new node to the swarm."""
         node = EmergenceNode(id=node_id, **kwargs)
@@ -200,7 +210,7 @@ def create_recommended_swarm(
     Recommended production bootstrap for Hybrid Control Swarm Harnesses (v3.2.1+).
 
     This is the canonical factory. It wires all Phase 1 capabilities and returns
-    a ready-to-use HybridControlSwarmGraph with the full recommended posture.
+    a ready-to-use HybridControlSwarmGraph (Graph Swarm Harness) with the full recommended posture.
     """
     swarm = HybridControlSwarmGraph(name=name, num_agents=num_agents)
 
@@ -271,5 +281,5 @@ if __name__ == "__main__":
     print("Posture:", swarm.get_posture().__dict__)
     result = swarm.hybrid_step({"task_complexity": 0.9})
     print("First hybrid_step result:", result)
-    print("Health snapshot:", swarm.get_health())
+    print("\n" + swarm.render_dashboard())
     print("Active nodes:", len(swarm.nodes))
