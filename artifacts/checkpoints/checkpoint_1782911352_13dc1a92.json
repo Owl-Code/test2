@@ -1,0 +1,430 @@
+{
+  "timestamp": 1782911352.694886,
+  "checkpoint_id": "13dc1a92-7064-4420-a662-3b6037bbf57f",
+  "state_hash": "4823ae4e685b94c957f24b86500e235b21e6e27df38923a5ee90baace75f32d1",
+  "nodes_state": [
+    {
+      "id": "agent_582790b6",
+      "resources": {
+        "energy": 76.5
+      },
+      "opinions": {
+        "main": 0.0
+      },
+      "goals": [],
+      "control_mode": "EMERGENCE",
+      "local_memory": {
+        "last_thought": "I am currently in a coordinator role with active neighbors (coder and reviewer). My goal is to achieve emergent behavior by setting my control mode to EMERGENCE. This will allow me to facilitate the swarm's self-organization towards solving complex problems.",
+        "last_decision_reason": "Setting the control mode to EMERGENCE will enable emergent behavior, which is crucial for achieving complex problem-solving in a hybrid control network.",
+        "last_confidence": 0.95,
+        "last_action_result": "Swarm control mode successfully set to EMERGENCE",
+        "last_action": {
+          "action_type": "set_control_mode",
+          "target_id": null,
+          "parameters": {
+            "mode": "EMERGENCE"
+          }
+        },
+        "stigmergy_deposits": []
+      },
+      "state": {
+        "role": "coordinator",
+        "active_skills": [
+          "graph_query",
+          "graph_update",
+          "handoff_create",
+          "spawn_sub_agent",
+          "set_control_mode"
+        ],
+        "available_tools": [
+          "query_swarm_emergence",
+          "create_handoff_edge",
+          "reply_to_operator",
+          "create_new_role"
+        ],
+        "beliefs": {
+          "persona": "You are the central planner. Decompose complex goals, delegate tasks to worker agents, and verify completion."
+        },
+        "short_term_memory": [],
+        "inbox": []
+      },
+      "metadata": {}
+    },
+    {
+      "id": "agent_f999eac1",
+      "resources": {
+        "energy": 76.5
+      },
+      "opinions": {
+        "main": 0.0
+      },
+      "goals": [],
+      "control_mode": "EMERGENCE",
+      "local_memory": {
+        "last_thought": "I am currently in an idle state with no active connections or tasks assigned. I should check for any pending messages from the operator to see if there is a task or request.",
+        "last_decision_reason": "I will execute this simple Python snippet to check if there are any unread messages from the operator, which could indicate a task or request.",
+        "last_confidence": 0.95,
+        "last_action_result": "Exit Code: 0\nStdout:\nOperator inbox contains unread messages?\n\n",
+        "last_action": {
+          "action_type": "execute_python_snippet",
+          "target_id": null,
+          "parameters": {
+            "code": "print('Operator inbox contains unread messages?')\nif 'operator' in dir():\n    print('Operator has sent a message.')"
+          }
+        },
+        "stigmergy_deposits": []
+      },
+      "state": {
+        "role": "coder",
+        "active_skills": [
+          "code_execution",
+          "file_io"
+        ],
+        "available_tools": [
+          "write_file",
+          "execute_python_snippet",
+          "create_handoff_edge",
+          "reply_to_operator"
+        ],
+        "beliefs": {
+          "persona": "You are a code-focused specialist. Write correct, clean, optimized, and thoroughly tested python scripts."
+        },
+        "inbox": [],
+        "short_term_memory": []
+      },
+      "metadata": {}
+    },
+    {
+      "id": "agent_ee476a1b",
+      "resources": {
+        "energy": 79.0
+      },
+      "opinions": {
+        "main": 0.0
+      },
+      "goals": [],
+      "control_mode": "EMERGENCE",
+      "local_memory": {
+        "last_thought": "Resting/Conserving state",
+        "last_decision_reason": "Agent inactive this tick; rule-based conserving state.",
+        "last_action": {
+          "action_type": "idle",
+          "target_id": null,
+          "parameters": {}
+        },
+        "stigmergy_deposits": []
+      },
+      "state": {
+        "role": "reviewer",
+        "active_skills": [
+          "file_io",
+          "self_reflect_and_emergence_update"
+        ],
+        "available_tools": [
+          "read_file",
+          "create_handoff_edge",
+          "reply_to_operator"
+        ],
+        "beliefs": {
+          "persona": "You are a reviewer. Audit local scripts for edge cases, performance bottlenecks, clean structure, and security risks."
+        },
+        "inbox": []
+      },
+      "metadata": {}
+    }
+  ],
+  "edges_state": [
+    {
+      "source_id": "agent_582790b6",
+      "target_id": "agent_f999eac1",
+      "weight": 1.5,
+      "edge_type": "COMMAND",
+      "strength": 1.0,
+      "last_updated": 1782911175.9576716,
+      "usage_count": 0,
+      "metadata": {},
+      "class_name": "AdaptiveEdge"
+    },
+    {
+      "source_id": "agent_f999eac1",
+      "target_id": "agent_582790b6",
+      "weight": 0.975,
+      "edge_type": "COMMUNICATION",
+      "strength": 1.0,
+      "last_updated": 1782911175.9576836,
+      "usage_count": 0,
+      "metadata": {},
+      "class_name": "EmergenceEdge"
+    },
+    {
+      "source_id": "agent_582790b6",
+      "target_id": "agent_ee476a1b",
+      "weight": 1.5,
+      "edge_type": "COMMAND",
+      "strength": 1.0,
+      "last_updated": 1782911175.9578733,
+      "usage_count": 0,
+      "metadata": {},
+      "class_name": "AdaptiveEdge"
+    },
+    {
+      "source_id": "agent_ee476a1b",
+      "target_id": "agent_582790b6",
+      "weight": 0.975,
+      "edge_type": "COMMUNICATION",
+      "strength": 1.0,
+      "last_updated": 1782911175.9578805,
+      "usage_count": 0,
+      "metadata": {},
+      "class_name": "EmergenceEdge"
+    }
+  ],
+  "provenance_chain": [
+    {
+      "index": 0,
+      "timestamp": 1782911175.9571302,
+      "delta": {
+        "timestamp": 1782911175.9571302,
+        "actor": "swarm_orchestrator",
+        "operation": "spawn_dynamic_agent",
+        "target": "agent_582790b6",
+        "before": null,
+        "after": {
+          "id": "agent_582790b6",
+          "role": "coordinator",
+          "skills": [
+            "graph_query",
+            "graph_update",
+            "handoff_create",
+            "spawn_sub_agent",
+            "set_control_mode"
+          ],
+          "tools": [
+            "query_swarm_emergence",
+            "create_handoff_edge",
+            "reply_to_operator",
+            "create_new_role"
+          ],
+          "parent_id": null
+        },
+        "meta": {
+          "emergence_boost": 0.1
+        }
+      },
+      "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "current_hash": "a6ff1af3080ea10e2fcf90a22ae7a4be867bfec613fdd4e039d9df0ec2f17df5"
+    },
+    {
+      "index": 1,
+      "timestamp": 1782911175.9576912,
+      "delta": {
+        "timestamp": 1782911175.9576912,
+        "actor": "swarm_orchestrator",
+        "operation": "spawn_dynamic_agent",
+        "target": "agent_f999eac1",
+        "before": null,
+        "after": {
+          "id": "agent_f999eac1",
+          "role": "coder",
+          "skills": [
+            "code_execution",
+            "file_io"
+          ],
+          "tools": [
+            "write_file",
+            "execute_python_snippet",
+            "create_handoff_edge",
+            "reply_to_operator"
+          ],
+          "parent_id": "agent_582790b6"
+        },
+        "meta": {
+          "emergence_boost": 0.1
+        }
+      },
+      "previous_hash": "a6ff1af3080ea10e2fcf90a22ae7a4be867bfec613fdd4e039d9df0ec2f17df5",
+      "current_hash": "399c9c0fd91f571784ffd5f6f30d37beab060451aa884ebc818504e3d6430fd6"
+    },
+    {
+      "index": 2,
+      "timestamp": 1782911175.9578853,
+      "delta": {
+        "timestamp": 1782911175.9578853,
+        "actor": "swarm_orchestrator",
+        "operation": "spawn_dynamic_agent",
+        "target": "agent_ee476a1b",
+        "before": null,
+        "after": {
+          "id": "agent_ee476a1b",
+          "role": "reviewer",
+          "skills": [
+            "file_io",
+            "self_reflect_and_emergence_update"
+          ],
+          "tools": [
+            "read_file",
+            "create_handoff_edge",
+            "reply_to_operator"
+          ],
+          "parent_id": "agent_582790b6"
+        },
+        "meta": {
+          "emergence_boost": 0.1
+        }
+      },
+      "previous_hash": "399c9c0fd91f571784ffd5f6f30d37beab060451aa884ebc818504e3d6430fd6",
+      "current_hash": "5aa859bfc507b736fb6d45bc39f539761ab300a20e36feecf64fed8d2e30b259"
+    },
+    {
+      "index": 3,
+      "timestamp": 1782911264.5671134,
+      "delta": {
+        "timestamp": 1782911264.5671134,
+        "actor": "agent_f999eac1",
+        "operation": "execute_tool",
+        "target": "execute_python_snippet",
+        "before": null,
+        "after": {
+          "args": {
+            "code": "print('Operator inbox contains unread messages?')\nif 'operator' in dir():\n    print('Operator has sent a message.')"
+          },
+          "result": "Exit Code: 0\nStdout:\nOperator inbox contains unread messages?\n\n"
+        },
+        "meta": {
+          "confidence": 0.95
+        }
+      },
+      "previous_hash": "5aa859bfc507b736fb6d45bc39f539761ab300a20e36feecf64fed8d2e30b259",
+      "current_hash": "64cc89c66db69ff5e42a6e9a97fabe5fb454685c567120b1ee0722ec77e941b7"
+    },
+    {
+      "index": 4,
+      "timestamp": 1782911352.691197,
+      "delta": {
+        "timestamp": 1782911352.691197,
+        "actor": "operator",
+        "operation": "set_control_mode",
+        "target": "swarm-alpha",
+        "before": {
+          "agent_582790b6": "EMERGENCE",
+          "agent_f999eac1": "EMERGENCE",
+          "agent_ee476a1b": "EMERGENCE"
+        },
+        "after": {
+          "agent_582790b6": "EMERGENCE",
+          "agent_f999eac1": "EMERGENCE",
+          "agent_ee476a1b": "EMERGENCE"
+        },
+        "meta": {
+          "global": true
+        }
+      },
+      "previous_hash": "64cc89c66db69ff5e42a6e9a97fabe5fb454685c567120b1ee0722ec77e941b7",
+      "current_hash": "67fa0ab07a994c7bdb53153101fe39cd145393cef9da45a2bab3e9928b023846"
+    },
+    {
+      "index": 5,
+      "timestamp": 1782911352.6913688,
+      "delta": {
+        "timestamp": 1782911352.6913688,
+        "actor": "agent_582790b6",
+        "operation": "execute_skill",
+        "target": "set_control_mode",
+        "before": null,
+        "after": {
+          "args": {
+            "mode": "EMERGENCE"
+          },
+          "result": "Swarm control mode successfully set to EMERGENCE"
+        },
+        "meta": {
+          "confidence": 0.95
+        }
+      },
+      "previous_hash": "67fa0ab07a994c7bdb53153101fe39cd145393cef9da45a2bab3e9928b023846",
+      "current_hash": "ff8e0de62a4e78cb94cc7b06908792d2d85f97cb7de67d9a2529842ce262d21a"
+    },
+    {
+      "index": 6,
+      "timestamp": 1782911352.6939707,
+      "delta": {
+        "timestamp": 1782911352.6939707,
+        "actor": "swarm_engine",
+        "operation": "hybrid_step",
+        "target": "1",
+        "before": {
+          "agent_582790b6": {
+            "resources": {
+              "energy": 77.5
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_f999eac1": {
+            "resources": {
+              "energy": 77.5
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_ee476a1b": {
+            "resources": {
+              "energy": 80.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          }
+        },
+        "after": {
+          "agent_582790b6": {
+            "resources": {
+              "energy": 76.5
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_f999eac1": {
+            "resources": {
+              "energy": 76.5
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_ee476a1b": {
+            "resources": {
+              "energy": 79.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          }
+        },
+        "meta": {
+          "transfers_executed": 0,
+          "starving_count": 0,
+          "active_modes": {
+            "HIERARCHICAL": 0,
+            "DECENTRALIZED": 0,
+            "STIGMERGIC": 0,
+            "EMERGENCE": 3
+          }
+        }
+      },
+      "previous_hash": "ff8e0de62a4e78cb94cc7b06908792d2d85f97cb7de67d9a2529842ce262d21a",
+      "current_hash": "da6840e007b2e53f5b0a1ca96bb60d6a5af85d042448a89bb43526f31aac11a9"
+    }
+  ],
+  "metadata": {
+    "active_goals": [
+      "Goal B"
+    ],
+    "chat_replies": [],
+    "intra_swarm_messages": [],
+    "swarm_name": "swarm-alpha"
+  }
+}

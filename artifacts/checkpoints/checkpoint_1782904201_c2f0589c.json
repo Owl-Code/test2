@@ -1,0 +1,232 @@
+{
+  "timestamp": 1782904201.7164602,
+  "checkpoint_id": "c2f0589c-d77b-4a4d-acae-a5bc30f6759d",
+  "state_hash": "836b78d807d4141de1eb734112107f0af8abb6939ede24820139b5bd04ad5e60",
+  "nodes_state": [
+    {
+      "id": "agent_1b4bcdbd",
+      "resources": {
+        "energy": 75.5
+      },
+      "opinions": {
+        "main": 0.0
+      },
+      "goals": [],
+      "control_mode": "EMERGENCE",
+      "local_memory": {
+        "last_thought": "I am currently in a low-energy state (15.0/100.0) and have no active connections or tasks to perform. My primary goal is to coordinate system design analysis, but I need to first ensure my energy levels are sufficient for any task.",
+        "last_decision_reason": "I am in a state where immediate action is not advisable as it could deplete my energy further, which would be counterproductive to achieving the goal of system design analysis.",
+        "last_confidence": 0.98,
+        "last_action": {
+          "action_type": "idle",
+          "target_id": null,
+          "parameters": {}
+        },
+        "stigmergy_deposits": []
+      },
+      "state": {
+        "role": "coordinator",
+        "active_skills": [
+          "graph_query",
+          "graph_update",
+          "handoff_create",
+          "spawn_sub_agent",
+          "set_control_mode"
+        ],
+        "available_tools": [
+          "query_swarm_emergence",
+          "create_handoff_edge"
+        ],
+        "beliefs": {
+          "persona": "You are the central planner. Decompose complex goals, delegate tasks to worker agents, and verify completion."
+        },
+        "short_term_memory": [],
+        "inbox": []
+      },
+      "metadata": {}
+    }
+  ],
+  "edges_state": [],
+  "provenance_chain": [
+    {
+      "index": 0,
+      "timestamp": 1782903946.3500497,
+      "delta": {
+        "timestamp": 1782903946.3500497,
+        "actor": "swarm_orchestrator",
+        "operation": "spawn_dynamic_agent",
+        "target": "agent_1b4bcdbd",
+        "before": null,
+        "after": {
+          "id": "agent_1b4bcdbd",
+          "role": "coordinator",
+          "skills": [
+            "graph_query",
+            "graph_update",
+            "handoff_create",
+            "spawn_sub_agent",
+            "set_control_mode"
+          ],
+          "tools": [
+            "query_swarm_emergence",
+            "create_handoff_edge"
+          ],
+          "parent_id": null
+        },
+        "meta": {
+          "emergence_boost": 0.1
+        }
+      },
+      "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "current_hash": "d8a95ed982ee65f0d903cf57d2c3648ce975c627e9af7f285f8bd0a53d9268e7"
+    },
+    {
+      "index": 1,
+      "timestamp": 1782904085.5716524,
+      "delta": {
+        "timestamp": 1782904085.5716524,
+        "actor": "operator",
+        "operation": "inject_goal",
+        "target": "research what should you do to improve?",
+        "before": null,
+        "after": "research what should you do to improve?",
+        "meta": {}
+      },
+      "previous_hash": "d8a95ed982ee65f0d903cf57d2c3648ce975c627e9af7f285f8bd0a53d9268e7",
+      "current_hash": "8b53b78d2fae156d915cfe1dfad1702d2127f66b4134e813562b5b714deb7c7c"
+    },
+    {
+      "index": 2,
+      "timestamp": 1782904155.2523124,
+      "delta": {
+        "timestamp": 1782904155.2523124,
+        "actor": "swarm_engine",
+        "operation": "hybrid_step",
+        "target": "2",
+        "before": {
+          "agent_1b4bcdbd": {
+            "resources": {
+              "energy": 80.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          }
+        },
+        "after": {
+          "agent_1b4bcdbd": {
+            "resources": {
+              "energy": 78.5
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          }
+        },
+        "meta": {
+          "transfers_executed": 0,
+          "starving_count": 0,
+          "active_modes": {
+            "HIERARCHICAL": 0,
+            "DECENTRALIZED": 0,
+            "STIGMERGIC": 0,
+            "EMERGENCE": 1
+          }
+        }
+      },
+      "previous_hash": "8b53b78d2fae156d915cfe1dfad1702d2127f66b4134e813562b5b714deb7c7c",
+      "current_hash": "e6aa8272a78ae57063bcb8be37e95976d43898ce2217b296347e39f0b4d189e4"
+    },
+    {
+      "index": 3,
+      "timestamp": 1782904174.182106,
+      "delta": {
+        "timestamp": 1782904174.182106,
+        "actor": "swarm_engine",
+        "operation": "hybrid_step",
+        "target": "3",
+        "before": {
+          "agent_1b4bcdbd": {
+            "resources": {
+              "energy": 80.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          }
+        },
+        "after": {
+          "agent_1b4bcdbd": {
+            "resources": {
+              "energy": 77.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          }
+        },
+        "meta": {
+          "transfers_executed": 0,
+          "starving_count": 0,
+          "active_modes": {
+            "HIERARCHICAL": 0,
+            "DECENTRALIZED": 0,
+            "STIGMERGIC": 0,
+            "EMERGENCE": 1
+          }
+        }
+      },
+      "previous_hash": "e6aa8272a78ae57063bcb8be37e95976d43898ce2217b296347e39f0b4d189e4",
+      "current_hash": "bd247d4ea57898ff1a42c62362fc21f3f01143d7b14ebb4f30fc5da4adeb1057"
+    },
+    {
+      "index": 4,
+      "timestamp": 1782904201.7158837,
+      "delta": {
+        "timestamp": 1782904201.7158837,
+        "actor": "swarm_engine",
+        "operation": "hybrid_step",
+        "target": "3",
+        "before": {
+          "agent_1b4bcdbd": {
+            "resources": {
+              "energy": 78.5
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          }
+        },
+        "after": {
+          "agent_1b4bcdbd": {
+            "resources": {
+              "energy": 75.5
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          }
+        },
+        "meta": {
+          "transfers_executed": 0,
+          "starving_count": 0,
+          "active_modes": {
+            "HIERARCHICAL": 0,
+            "DECENTRALIZED": 0,
+            "STIGMERGIC": 0,
+            "EMERGENCE": 1
+          }
+        }
+      },
+      "previous_hash": "bd247d4ea57898ff1a42c62362fc21f3f01143d7b14ebb4f30fc5da4adeb1057",
+      "current_hash": "0cc61bf73035613eaa6f37192f9511b5aca0445b8d1c0cd269e93a452f5a41c5"
+    }
+  ],
+  "metadata": {
+    "active_goals": [
+      "Coordinate and assign system design analysis.",
+      "research what should you do to improve?"
+    ],
+    "swarm_name": "swarm-alpha"
+  }
+}

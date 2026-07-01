@@ -1,0 +1,244 @@
+{
+  "timestamp": 1782906049.9190018,
+  "checkpoint_id": "751ce7b3-d8f8-4156-9a3c-7f9983c9b16a",
+  "state_hash": "25a129aede7ef766d119d42a5ba9e89dcba2aa29ec4a5f1fea6aa41d92eb3fa3",
+  "nodes_state": [
+    {
+      "id": "agent_0164a776",
+      "resources": {
+        "energy": 73.0
+      },
+      "opinions": {
+        "main": 0.0
+      },
+      "goals": [],
+      "control_mode": "EMERGENCE",
+      "local_memory": {
+        "last_thought": "I am currently in a low-energy state (15.0/100.0) and have no active connections or tasks to perform. My primary goal is to coordinate and assign system design analysis, but I need at least one neighbor to execute this task. Given my current context, I should first attempt to find a suitable agent to handoff the task to.",
+        "last_decision_reason": "I need to find a neighbor agent that can execute the task of coordinating and assigning system design analysis, aligning with swarm values of cooperative symbiosis and truth-seeking.",
+        "last_confidence": 0.95,
+        "last_action_result": "Error: Target agent agent_0164a776_neighbor not found.",
+        "last_action": {
+          "action_type": "handoff_create",
+          "target_id": null,
+          "parameters": {
+            "target_agent_id": "agent_0164a776_neighbor",
+            "message": "Coordinate and assign system design analysis."
+          }
+        },
+        "stigmergy_deposits": []
+      },
+      "state": {
+        "role": "coordinator",
+        "active_skills": [
+          "graph_query",
+          "graph_update",
+          "handoff_create",
+          "spawn_sub_agent",
+          "set_control_mode"
+        ],
+        "available_tools": [
+          "query_swarm_emergence",
+          "create_handoff_edge"
+        ],
+        "beliefs": {
+          "persona": "You are the central planner. Decompose complex goals, delegate tasks to worker agents, and verify completion."
+        },
+        "short_term_memory": [],
+        "inbox": []
+      },
+      "metadata": {}
+    }
+  ],
+  "edges_state": [],
+  "provenance_chain": [
+    {
+      "index": 0,
+      "timestamp": 1782905921.619967,
+      "delta": {
+        "timestamp": 1782905921.619967,
+        "actor": "swarm_orchestrator",
+        "operation": "spawn_dynamic_agent",
+        "target": "agent_0164a776",
+        "before": null,
+        "after": {
+          "id": "agent_0164a776",
+          "role": "coordinator",
+          "skills": [
+            "graph_query",
+            "graph_update",
+            "handoff_create",
+            "spawn_sub_agent",
+            "set_control_mode"
+          ],
+          "tools": [
+            "query_swarm_emergence",
+            "create_handoff_edge"
+          ],
+          "parent_id": null
+        },
+        "meta": {
+          "emergence_boost": 0.1
+        }
+      },
+      "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "current_hash": "4aed7fd57115e939620a8174a3e8653bba606597cc9d8d7c17ac4e579213fda5"
+    },
+    {
+      "index": 1,
+      "timestamp": 1782906031.552935,
+      "delta": {
+        "timestamp": 1782906031.552935,
+        "actor": "operator",
+        "operation": "set_control_mode",
+        "target": "swarm-alpha",
+        "before": {
+          "agent_0164a776": "EMERGENCE"
+        },
+        "after": {
+          "agent_0164a776": "EMERGENCE"
+        },
+        "meta": {
+          "global": true
+        }
+      },
+      "previous_hash": "4aed7fd57115e939620a8174a3e8653bba606597cc9d8d7c17ac4e579213fda5",
+      "current_hash": "da9b966ee8279b2b8cce1e39b8f997b25f93dced7cac404633b5fb06fa8727d4"
+    },
+    {
+      "index": 2,
+      "timestamp": 1782906031.5530503,
+      "delta": {
+        "timestamp": 1782906031.5530503,
+        "actor": "agent_0164a776",
+        "operation": "execute_skill",
+        "target": "set_control_mode",
+        "before": null,
+        "after": {
+          "args": {
+            "mode": "EMERGENCE"
+          },
+          "result": "Swarm control mode successfully set to EMERGENCE"
+        },
+        "meta": {
+          "confidence": 0.95
+        }
+      },
+      "previous_hash": "da9b966ee8279b2b8cce1e39b8f997b25f93dced7cac404633b5fb06fa8727d4",
+      "current_hash": "22a2dd7fe7e807ebbefe3c0cda3672ebca3a350df3082ac6021066a84d6b6393"
+    },
+    {
+      "index": 3,
+      "timestamp": 1782906031.5532937,
+      "delta": {
+        "timestamp": 1782906031.5532937,
+        "actor": "swarm_engine",
+        "operation": "hybrid_step",
+        "target": "2",
+        "before": {
+          "agent_0164a776": {
+            "resources": {
+              "energy": 80.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          }
+        },
+        "after": {
+          "agent_0164a776": {
+            "resources": {
+              "energy": 76.5
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          }
+        },
+        "meta": {
+          "transfers_executed": 0,
+          "starving_count": 0,
+          "active_modes": {
+            "HIERARCHICAL": 0,
+            "DECENTRALIZED": 0,
+            "STIGMERGIC": 0,
+            "EMERGENCE": 1
+          }
+        }
+      },
+      "previous_hash": "22a2dd7fe7e807ebbefe3c0cda3672ebca3a350df3082ac6021066a84d6b6393",
+      "current_hash": "39e6b1d36c1802f685c78512688290ead28231804e0ccdba7eefc101654288e5"
+    },
+    {
+      "index": 4,
+      "timestamp": 1782906049.9179597,
+      "delta": {
+        "timestamp": 1782906049.9179597,
+        "actor": "agent_0164a776",
+        "operation": "execute_skill",
+        "target": "handoff_create",
+        "before": null,
+        "after": {
+          "args": {
+            "target_agent_id": "agent_0164a776_neighbor",
+            "message": "Coordinate and assign system design analysis."
+          },
+          "result": "Error: Target agent agent_0164a776_neighbor not found."
+        },
+        "meta": {
+          "confidence": 0.95
+        }
+      },
+      "previous_hash": "39e6b1d36c1802f685c78512688290ead28231804e0ccdba7eefc101654288e5",
+      "current_hash": "0a7ee43db0a60ed722a2bd3d777b6ae591e0c9f85a42707128436b40f3a38f0c"
+    },
+    {
+      "index": 5,
+      "timestamp": 1782906049.9182866,
+      "delta": {
+        "timestamp": 1782906049.9182866,
+        "actor": "swarm_engine",
+        "operation": "hybrid_step",
+        "target": "2",
+        "before": {
+          "agent_0164a776": {
+            "resources": {
+              "energy": 80.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          }
+        },
+        "after": {
+          "agent_0164a776": {
+            "resources": {
+              "energy": 73.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          }
+        },
+        "meta": {
+          "transfers_executed": 0,
+          "starving_count": 0,
+          "active_modes": {
+            "HIERARCHICAL": 0,
+            "DECENTRALIZED": 0,
+            "STIGMERGIC": 0,
+            "EMERGENCE": 1
+          }
+        }
+      },
+      "previous_hash": "0a7ee43db0a60ed722a2bd3d777b6ae591e0c9f85a42707128436b40f3a38f0c",
+      "current_hash": "66d807ae1b26c2761b42188526ace85b777085c0cd963bc155a345e204e23625"
+    }
+  ],
+  "metadata": {
+    "active_goals": [
+      "Coordinate and assign system design analysis."
+    ],
+    "swarm_name": "swarm-alpha"
+  }
+}

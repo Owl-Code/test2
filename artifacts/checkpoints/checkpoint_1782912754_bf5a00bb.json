@@ -1,0 +1,1131 @@
+{
+  "timestamp": 1782912754.806547,
+  "checkpoint_id": "bf5a00bb-5999-4dc7-8d49-8fbb63b37bae",
+  "state_hash": "c1d20272a86f37c1a8276f65d68e7df014dcee7b9694cd183a4bde784c0dae12",
+  "nodes_state": [
+    {
+      "id": "agent_502f6eac",
+      "resources": {
+        "energy": 41.5
+      },
+      "opinions": {
+        "main": 0.0
+      },
+      "goals": [],
+      "control_mode": "EMERGENCE",
+      "local_memory": {
+        "last_thought": "I am currently in a coordinator role with active neighbors but no recent tasks or messages from the operator. My primary goal is to coordinate system design analysis. I should query the swarm's current state using the graph_query skill and then decide on the next action.",
+        "last_decision_reason": "Querying the swarm's current state to understand its composition and status, which will inform my next steps in coordinating system design analysis.",
+        "last_confidence": 0.95,
+        "last_error": "Execution failed: graph_query_skill() missing 1 required positional argument: 'run_context'",
+        "last_action_result": "Execution failed: graph_query_skill() missing 1 required positional argument: 'run_context'",
+        "last_action": {
+          "action_type": "graph_query",
+          "target_id": null,
+          "parameters": {}
+        },
+        "stigmergy_deposits": []
+      },
+      "state": {
+        "role": "coordinator",
+        "active_skills": [
+          "graph_query",
+          "graph_update",
+          "handoff_create",
+          "spawn_sub_agent",
+          "set_control_mode"
+        ],
+        "available_tools": [
+          "query_swarm_emergence",
+          "create_handoff_edge",
+          "reply_to_operator",
+          "create_new_role"
+        ],
+        "beliefs": {
+          "persona": "You are the central planner. Decompose complex goals, delegate tasks to worker agents, and verify completion."
+        },
+        "inbox": [
+          {
+            "sender_id": "operator",
+            "message": "Create a new role 'doc_writer' with skills ['file_io'] and tools ['write_file'] and spawn it.",
+            "meta": {},
+            "read": true
+          }
+        ],
+        "short_term_memory": []
+      },
+      "metadata": {}
+    },
+    {
+      "id": "agent_d65956ad",
+      "resources": {
+        "energy": 41.5
+      },
+      "opinions": {
+        "main": 0.0
+      },
+      "goals": [],
+      "control_mode": "EMERGENCE",
+      "local_memory": {
+        "last_thought": "I am currently idle with 45.0 energy and no active connections/neighbors. My main task is to coordinate and assign system design analysis as per the swarm active goal. I should spawn a coder agent to write the required Python script for this purpose.",
+        "last_decision_reason": "Spawning a coder agent is the best course of action as it aligns with the swarm's goal to write correct, clean, optimized, and thoroughly tested Python scripts for system design analysis.",
+        "last_confidence": 0.98,
+        "last_error": "Execution failed: create_handoff_edge_tool() missing 1 required positional argument: 'run_context'",
+        "last_action_result": "Execution failed: create_handoff_edge_tool() missing 1 required positional argument: 'run_context'",
+        "last_action": {
+          "action_type": "create_handoff_edge",
+          "target_id": null,
+          "parameters": {
+            "target_agent_id": "agent_502f6eac",
+            "message": "I need you to create a Python script that performs system design analysis. This will help us coordinate and assign tasks effectively."
+          }
+        },
+        "stigmergy_deposits": []
+      },
+      "state": {
+        "role": "coder",
+        "active_skills": [
+          "code_execution",
+          "file_io"
+        ],
+        "available_tools": [
+          "write_file",
+          "execute_python_snippet",
+          "create_handoff_edge",
+          "reply_to_operator"
+        ],
+        "beliefs": {
+          "persona": "You are a code-focused specialist. Write correct, clean, optimized, and thoroughly tested python scripts."
+        },
+        "inbox": [],
+        "short_term_memory": []
+      },
+      "metadata": {}
+    },
+    {
+      "id": "agent_bf928d08",
+      "resources": {
+        "energy": 69.0
+      },
+      "opinions": {
+        "main": 0.0
+      },
+      "goals": [],
+      "control_mode": "EMERGENCE",
+      "local_memory": {
+        "last_thought": "Resting/Conserving state",
+        "last_decision_reason": "Agent inactive this tick; rule-based conserving state.",
+        "last_action": {
+          "action_type": "idle",
+          "target_id": null,
+          "parameters": {}
+        },
+        "stigmergy_deposits": []
+      },
+      "state": {
+        "role": "reviewer",
+        "active_skills": [
+          "file_io",
+          "self_reflect_and_emergence_update"
+        ],
+        "available_tools": [
+          "read_file",
+          "create_handoff_edge",
+          "reply_to_operator"
+        ],
+        "beliefs": {
+          "persona": "You are a reviewer. Audit local scripts for edge cases, performance bottlenecks, clean structure, and security risks."
+        },
+        "inbox": []
+      },
+      "metadata": {}
+    }
+  ],
+  "edges_state": [
+    {
+      "source_id": "agent_502f6eac",
+      "target_id": "agent_d65956ad",
+      "weight": 1.5,
+      "edge_type": "COMMAND",
+      "strength": 1.0,
+      "last_updated": 1782911581.780887,
+      "usage_count": 0,
+      "metadata": {},
+      "class_name": "AdaptiveEdge"
+    },
+    {
+      "source_id": "agent_d65956ad",
+      "target_id": "agent_502f6eac",
+      "weight": 0.7569213803350267,
+      "edge_type": "COMMUNICATION",
+      "strength": 1.0,
+      "last_updated": 1782911581.7808974,
+      "usage_count": 0,
+      "metadata": {},
+      "class_name": "EmergenceEdge"
+    },
+    {
+      "source_id": "agent_502f6eac",
+      "target_id": "agent_bf928d08",
+      "weight": 1.5,
+      "edge_type": "COMMAND",
+      "strength": 1.0,
+      "last_updated": 1782911581.781077,
+      "usage_count": 0,
+      "metadata": {},
+      "class_name": "AdaptiveEdge"
+    },
+    {
+      "source_id": "agent_bf928d08",
+      "target_id": "agent_502f6eac",
+      "weight": 0.7569213803350267,
+      "edge_type": "COMMUNICATION",
+      "strength": 1.0,
+      "last_updated": 1782911581.7810946,
+      "usage_count": 0,
+      "metadata": {},
+      "class_name": "EmergenceEdge"
+    }
+  ],
+  "provenance_chain": [
+    {
+      "index": 0,
+      "timestamp": 1782911581.7802799,
+      "delta": {
+        "timestamp": 1782911581.7802799,
+        "actor": "swarm_orchestrator",
+        "operation": "spawn_dynamic_agent",
+        "target": "agent_502f6eac",
+        "before": null,
+        "after": {
+          "id": "agent_502f6eac",
+          "role": "coordinator",
+          "skills": [
+            "graph_query",
+            "graph_update",
+            "handoff_create",
+            "spawn_sub_agent",
+            "set_control_mode"
+          ],
+          "tools": [
+            "query_swarm_emergence",
+            "create_handoff_edge",
+            "reply_to_operator",
+            "create_new_role"
+          ],
+          "parent_id": null
+        },
+        "meta": {
+          "emergence_boost": 0.1
+        }
+      },
+      "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "current_hash": "1d6fa36f5f9db5a41adafd0e543250f730889dac751f1dbf7214a8adb91f1173"
+    },
+    {
+      "index": 1,
+      "timestamp": 1782911581.7809064,
+      "delta": {
+        "timestamp": 1782911581.7809064,
+        "actor": "swarm_orchestrator",
+        "operation": "spawn_dynamic_agent",
+        "target": "agent_d65956ad",
+        "before": null,
+        "after": {
+          "id": "agent_d65956ad",
+          "role": "coder",
+          "skills": [
+            "code_execution",
+            "file_io"
+          ],
+          "tools": [
+            "write_file",
+            "execute_python_snippet",
+            "create_handoff_edge",
+            "reply_to_operator"
+          ],
+          "parent_id": "agent_502f6eac"
+        },
+        "meta": {
+          "emergence_boost": 0.1
+        }
+      },
+      "previous_hash": "1d6fa36f5f9db5a41adafd0e543250f730889dac751f1dbf7214a8adb91f1173",
+      "current_hash": "d51d2b1967c90d49e764cc764892390b516b5e235b71ff2d494707b3fa28dc5a"
+    },
+    {
+      "index": 2,
+      "timestamp": 1782911581.7811,
+      "delta": {
+        "timestamp": 1782911581.7811,
+        "actor": "swarm_orchestrator",
+        "operation": "spawn_dynamic_agent",
+        "target": "agent_bf928d08",
+        "before": null,
+        "after": {
+          "id": "agent_bf928d08",
+          "role": "reviewer",
+          "skills": [
+            "file_io",
+            "self_reflect_and_emergence_update"
+          ],
+          "tools": [
+            "read_file",
+            "create_handoff_edge",
+            "reply_to_operator"
+          ],
+          "parent_id": "agent_502f6eac"
+        },
+        "meta": {
+          "emergence_boost": 0.1
+        }
+      },
+      "previous_hash": "d51d2b1967c90d49e764cc764892390b516b5e235b71ff2d494707b3fa28dc5a",
+      "current_hash": "4d8ed3d77e46d39c118a5e49cbbc8dc1bbb3f21121afba3aea923c7046908496"
+    },
+    {
+      "index": 3,
+      "timestamp": 1782911729.7420454,
+      "delta": {
+        "timestamp": 1782911729.7420454,
+        "actor": "swarm_engine",
+        "operation": "hybrid_step",
+        "target": "1",
+        "before": {
+          "agent_502f6eac": {
+            "resources": {
+              "energy": 77.5
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_d65956ad": {
+            "resources": {
+              "energy": 77.5
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_bf928d08": {
+            "resources": {
+              "energy": 80.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          }
+        },
+        "after": {
+          "agent_502f6eac": {
+            "resources": {
+              "energy": 76.5
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_d65956ad": {
+            "resources": {
+              "energy": 76.5
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_bf928d08": {
+            "resources": {
+              "energy": 79.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          }
+        },
+        "meta": {
+          "transfers_executed": 0,
+          "starving_count": 0,
+          "active_modes": {
+            "HIERARCHICAL": 0,
+            "DECENTRALIZED": 0,
+            "STIGMERGIC": 0,
+            "EMERGENCE": 3
+          }
+        }
+      },
+      "previous_hash": "4d8ed3d77e46d39c118a5e49cbbc8dc1bbb3f21121afba3aea923c7046908496",
+      "current_hash": "fca9c5fe0505be97a0b6ecaa17b5a4fe6cab34e555ace908d7b6372219e25124"
+    },
+    {
+      "index": 4,
+      "timestamp": 1782911746.493003,
+      "delta": {
+        "timestamp": 1782911746.493003,
+        "actor": "operator",
+        "operation": "inject_goal",
+        "target": "Observe -> Hypothesize -> Test -> Implement improvement",
+        "before": null,
+        "after": "Observe -> Hypothesize -> Test -> Implement improvement",
+        "meta": {}
+      },
+      "previous_hash": "fca9c5fe0505be97a0b6ecaa17b5a4fe6cab34e555ace908d7b6372219e25124",
+      "current_hash": "5b2411684ebdcda78cfd444988ac5935e2541da712c9471ec9233f43f76295e3"
+    },
+    {
+      "index": 5,
+      "timestamp": 1782911916.612773,
+      "delta": {
+        "timestamp": 1782911916.612773,
+        "actor": "swarm_engine",
+        "operation": "hybrid_step",
+        "target": "2",
+        "before": {
+          "agent_502f6eac": {
+            "resources": {
+              "energy": 74.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_d65956ad": {
+            "resources": {
+              "energy": 74.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_bf928d08": {
+            "resources": {
+              "energy": 79.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          }
+        },
+        "after": {
+          "agent_502f6eac": {
+            "resources": {
+              "energy": 73.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_d65956ad": {
+            "resources": {
+              "energy": 73.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_bf928d08": {
+            "resources": {
+              "energy": 78.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          }
+        },
+        "meta": {
+          "transfers_executed": 0,
+          "starving_count": 0,
+          "active_modes": {
+            "HIERARCHICAL": 0,
+            "DECENTRALIZED": 0,
+            "STIGMERGIC": 0,
+            "EMERGENCE": 3
+          }
+        }
+      },
+      "previous_hash": "5b2411684ebdcda78cfd444988ac5935e2541da712c9471ec9233f43f76295e3",
+      "current_hash": "e6561416c0eafc3943eee5137a1f2bff49914ba1e057c1209b1969a8de47d2bd"
+    },
+    {
+      "index": 6,
+      "timestamp": 1782912014.583984,
+      "delta": {
+        "timestamp": 1782912014.583984,
+        "actor": "swarm_engine",
+        "operation": "hybrid_step",
+        "target": "3",
+        "before": {
+          "agent_502f6eac": {
+            "resources": {
+              "energy": 70.5
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_d65956ad": {
+            "resources": {
+              "energy": 70.5
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_bf928d08": {
+            "resources": {
+              "energy": 78.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          }
+        },
+        "after": {
+          "agent_502f6eac": {
+            "resources": {
+              "energy": 69.5
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_d65956ad": {
+            "resources": {
+              "energy": 69.5
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_bf928d08": {
+            "resources": {
+              "energy": 77.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          }
+        },
+        "meta": {
+          "transfers_executed": 0,
+          "starving_count": 0,
+          "active_modes": {
+            "HIERARCHICAL": 0,
+            "DECENTRALIZED": 0,
+            "STIGMERGIC": 0,
+            "EMERGENCE": 3
+          }
+        }
+      },
+      "previous_hash": "e6561416c0eafc3943eee5137a1f2bff49914ba1e057c1209b1969a8de47d2bd",
+      "current_hash": "54fd05f0b806eb0101bc027f8b38d9ed60dfb7164b3cd7cd135c233e8b9096ac"
+    },
+    {
+      "index": 7,
+      "timestamp": 1782912107.236088,
+      "delta": {
+        "timestamp": 1782912107.236088,
+        "actor": "swarm_engine",
+        "operation": "hybrid_step",
+        "target": "4",
+        "before": {
+          "agent_502f6eac": {
+            "resources": {
+              "energy": 67.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_d65956ad": {
+            "resources": {
+              "energy": 67.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_bf928d08": {
+            "resources": {
+              "energy": 77.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          }
+        },
+        "after": {
+          "agent_502f6eac": {
+            "resources": {
+              "energy": 66.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_d65956ad": {
+            "resources": {
+              "energy": 66.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_bf928d08": {
+            "resources": {
+              "energy": 76.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          }
+        },
+        "meta": {
+          "transfers_executed": 0,
+          "starving_count": 0,
+          "active_modes": {
+            "HIERARCHICAL": 0,
+            "DECENTRALIZED": 0,
+            "STIGMERGIC": 0,
+            "EMERGENCE": 3
+          }
+        }
+      },
+      "previous_hash": "54fd05f0b806eb0101bc027f8b38d9ed60dfb7164b3cd7cd135c233e8b9096ac",
+      "current_hash": "15623eb0fbedf3c871cf63658a574b5702186572ff9e07beecad6247acd7f75a"
+    },
+    {
+      "index": 8,
+      "timestamp": 1782912210.6188111,
+      "delta": {
+        "timestamp": 1782912210.6188111,
+        "actor": "swarm_engine",
+        "operation": "hybrid_step",
+        "target": "5",
+        "before": {
+          "agent_502f6eac": {
+            "resources": {
+              "energy": 63.5
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_d65956ad": {
+            "resources": {
+              "energy": 63.5
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_bf928d08": {
+            "resources": {
+              "energy": 76.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          }
+        },
+        "after": {
+          "agent_502f6eac": {
+            "resources": {
+              "energy": 62.5
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_d65956ad": {
+            "resources": {
+              "energy": 62.5
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_bf928d08": {
+            "resources": {
+              "energy": 75.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          }
+        },
+        "meta": {
+          "transfers_executed": 0,
+          "starving_count": 0,
+          "active_modes": {
+            "HIERARCHICAL": 0,
+            "DECENTRALIZED": 0,
+            "STIGMERGIC": 0,
+            "EMERGENCE": 3
+          }
+        }
+      },
+      "previous_hash": "15623eb0fbedf3c871cf63658a574b5702186572ff9e07beecad6247acd7f75a",
+      "current_hash": "675ca59865611e9c19b555e67061befefd391f872ed600c1104994268a14dc63"
+    },
+    {
+      "index": 9,
+      "timestamp": 1782912305.3439112,
+      "delta": {
+        "timestamp": 1782912305.3439112,
+        "actor": "swarm_engine",
+        "operation": "hybrid_step",
+        "target": "6",
+        "before": {
+          "agent_502f6eac": {
+            "resources": {
+              "energy": 60.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_d65956ad": {
+            "resources": {
+              "energy": 60.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_bf928d08": {
+            "resources": {
+              "energy": 75.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          }
+        },
+        "after": {
+          "agent_502f6eac": {
+            "resources": {
+              "energy": 59.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_d65956ad": {
+            "resources": {
+              "energy": 59.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_bf928d08": {
+            "resources": {
+              "energy": 74.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          }
+        },
+        "meta": {
+          "transfers_executed": 0,
+          "starving_count": 0,
+          "active_modes": {
+            "HIERARCHICAL": 0,
+            "DECENTRALIZED": 0,
+            "STIGMERGIC": 0,
+            "EMERGENCE": 3
+          }
+        }
+      },
+      "previous_hash": "675ca59865611e9c19b555e67061befefd391f872ed600c1104994268a14dc63",
+      "current_hash": "9995c4cb24b2de10c6a7138ce9fc6d23a9bd82b0f6b45ba2ad7ce563d07a9eb3"
+    },
+    {
+      "index": 10,
+      "timestamp": 1782912403.4912903,
+      "delta": {
+        "timestamp": 1782912403.4912903,
+        "actor": "swarm_engine",
+        "operation": "hybrid_step",
+        "target": "7",
+        "before": {
+          "agent_502f6eac": {
+            "resources": {
+              "energy": 56.5
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_d65956ad": {
+            "resources": {
+              "energy": 56.5
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_bf928d08": {
+            "resources": {
+              "energy": 74.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          }
+        },
+        "after": {
+          "agent_502f6eac": {
+            "resources": {
+              "energy": 55.5
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_d65956ad": {
+            "resources": {
+              "energy": 55.5
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_bf928d08": {
+            "resources": {
+              "energy": 73.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          }
+        },
+        "meta": {
+          "transfers_executed": 0,
+          "starving_count": 0,
+          "active_modes": {
+            "HIERARCHICAL": 0,
+            "DECENTRALIZED": 0,
+            "STIGMERGIC": 0,
+            "EMERGENCE": 3
+          }
+        }
+      },
+      "previous_hash": "9995c4cb24b2de10c6a7138ce9fc6d23a9bd82b0f6b45ba2ad7ce563d07a9eb3",
+      "current_hash": "1633f38ddb907174e283021c0755b299ae1f2ceb8be018ac6ab62badd95a0e6e"
+    },
+    {
+      "index": 11,
+      "timestamp": 1782912507.3670185,
+      "delta": {
+        "timestamp": 1782912507.3670185,
+        "actor": "swarm_engine",
+        "operation": "hybrid_step",
+        "target": "8",
+        "before": {
+          "agent_502f6eac": {
+            "resources": {
+              "energy": 53.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_d65956ad": {
+            "resources": {
+              "energy": 53.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_bf928d08": {
+            "resources": {
+              "energy": 73.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          }
+        },
+        "after": {
+          "agent_502f6eac": {
+            "resources": {
+              "energy": 52.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_d65956ad": {
+            "resources": {
+              "energy": 52.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_bf928d08": {
+            "resources": {
+              "energy": 72.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          }
+        },
+        "meta": {
+          "transfers_executed": 0,
+          "starving_count": 0,
+          "active_modes": {
+            "HIERARCHICAL": 0,
+            "DECENTRALIZED": 0,
+            "STIGMERGIC": 0,
+            "EMERGENCE": 3
+          }
+        }
+      },
+      "previous_hash": "1633f38ddb907174e283021c0755b299ae1f2ceb8be018ac6ab62badd95a0e6e",
+      "current_hash": "df657132e00105b4d0961037a400cca8f99b2c476fc8d5d41527971644a20ca9"
+    },
+    {
+      "index": 12,
+      "timestamp": 1782912592.6775355,
+      "delta": {
+        "timestamp": 1782912592.6775355,
+        "actor": "swarm_engine",
+        "operation": "hybrid_step",
+        "target": "9",
+        "before": {
+          "agent_502f6eac": {
+            "resources": {
+              "energy": 49.5
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_d65956ad": {
+            "resources": {
+              "energy": 49.5
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_bf928d08": {
+            "resources": {
+              "energy": 72.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          }
+        },
+        "after": {
+          "agent_502f6eac": {
+            "resources": {
+              "energy": 48.5
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_d65956ad": {
+            "resources": {
+              "energy": 48.5
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_bf928d08": {
+            "resources": {
+              "energy": 71.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          }
+        },
+        "meta": {
+          "transfers_executed": 0,
+          "starving_count": 0,
+          "active_modes": {
+            "HIERARCHICAL": 0,
+            "DECENTRALIZED": 0,
+            "STIGMERGIC": 0,
+            "EMERGENCE": 3
+          }
+        }
+      },
+      "previous_hash": "df657132e00105b4d0961037a400cca8f99b2c476fc8d5d41527971644a20ca9",
+      "current_hash": "05c1fa9fa5dd86e266b66be1e7f7ede11519532b45f459991ce7d56a11584a55"
+    },
+    {
+      "index": 13,
+      "timestamp": 1782912669.6799433,
+      "delta": {
+        "timestamp": 1782912669.6799433,
+        "actor": "swarm_engine",
+        "operation": "hybrid_step",
+        "target": "10",
+        "before": {
+          "agent_502f6eac": {
+            "resources": {
+              "energy": 46.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_d65956ad": {
+            "resources": {
+              "energy": 46.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_bf928d08": {
+            "resources": {
+              "energy": 71.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          }
+        },
+        "after": {
+          "agent_502f6eac": {
+            "resources": {
+              "energy": 45.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_d65956ad": {
+            "resources": {
+              "energy": 45.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_bf928d08": {
+            "resources": {
+              "energy": 70.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          }
+        },
+        "meta": {
+          "transfers_executed": 0,
+          "starving_count": 0,
+          "active_modes": {
+            "HIERARCHICAL": 0,
+            "DECENTRALIZED": 0,
+            "STIGMERGIC": 0,
+            "EMERGENCE": 3
+          }
+        }
+      },
+      "previous_hash": "05c1fa9fa5dd86e266b66be1e7f7ede11519532b45f459991ce7d56a11584a55",
+      "current_hash": "4769da6f6ec21175b5b02815400f6cd41edf12b3a62b300226c688f78396e30b"
+    },
+    {
+      "index": 14,
+      "timestamp": 1782912754.8055475,
+      "delta": {
+        "timestamp": 1782912754.8055475,
+        "actor": "swarm_engine",
+        "operation": "hybrid_step",
+        "target": "11",
+        "before": {
+          "agent_502f6eac": {
+            "resources": {
+              "energy": 42.5
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_d65956ad": {
+            "resources": {
+              "energy": 42.5
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_bf928d08": {
+            "resources": {
+              "energy": 70.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          }
+        },
+        "after": {
+          "agent_502f6eac": {
+            "resources": {
+              "energy": 41.5
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_d65956ad": {
+            "resources": {
+              "energy": 41.5
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_bf928d08": {
+            "resources": {
+              "energy": 69.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          }
+        },
+        "meta": {
+          "transfers_executed": 0,
+          "starving_count": 0,
+          "active_modes": {
+            "HIERARCHICAL": 0,
+            "DECENTRALIZED": 0,
+            "STIGMERGIC": 0,
+            "EMERGENCE": 3
+          }
+        }
+      },
+      "previous_hash": "4769da6f6ec21175b5b02815400f6cd41edf12b3a62b300226c688f78396e30b",
+      "current_hash": "4942c74d0aa4c1a9fcf5d2fd768882717ea19d561c1e1bb6e91feb65ce0c458f"
+    }
+  ],
+  "metadata": {
+    "active_goals": [
+      "Coordinate and assign system design analysis.",
+      "Observe -> Hypothesize -> Test -> Implement improvement"
+    ],
+    "chat_replies": [
+      {
+        "sender": "operator",
+        "text": "Create a new role 'doc_writer' with skills ['file_io'] and tools ['write_file'] and spawn it.",
+        "timestamp": 1782911607
+      }
+    ],
+    "intra_swarm_messages": [],
+    "swarm_name": "swarm-alpha"
+  }
+}

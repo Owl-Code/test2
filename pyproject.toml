@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "base_graph"
+version = "1.0.0"
+description = "A local-first dynamic graph swarm harness implementing stigmergy, trophallaxis, and hybrid control."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [
+    { name = "DeepMind Coding Agent", email = "antigravity@google.com" }
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "pydantic>=2.0.0",
+    "numpy>=1.20.0",
+    "scipy>=1.7.0"
+]
+
+[project.optional-dependencies]
+gpu = [
+    "torch>=2.0.0"
+]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "pyright>=1.1.300",
+    "black>=23.0.0"
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["base_graph*"]

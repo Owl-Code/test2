@@ -1,0 +1,354 @@
+{
+  "timestamp": 1782885193.704967,
+  "checkpoint_id": "a19fedba-dba8-43e9-a0f6-348e743c9408",
+  "state_hash": "88ff059e162b46473678b2531eae49e3d5028192691e34db001aa8d2d8c31f33",
+  "nodes_state": [
+    {
+      "id": "agent_f47aa8ff",
+      "resources": {
+        "energy": 76.5
+      },
+      "opinions": {
+        "main": 0.0
+      },
+      "goals": [],
+      "control_mode": "EMERGENCE",
+      "local_memory": {
+        "last_thought": "I need to coordinate and assign system design analysis tasks within the swarm. I will use my 'handoff_create' skill to send a message to another agent with details about this task.",
+        "last_decision_reason": "Executing this action will help in coordinating the system design analysis tasks, aligning with the swarm's goal of truth-seeking and objective correctness.",
+        "last_confidence": 0.95,
+        "last_error": "Execution failed: handoff_create_skill() got an unexpected keyword argument '@type:coder, @role:analyst, @task:system_design_analysis_details, @priority:normal, @details:{'analysis_type':'performance', 'platform':'AI_system'}'",
+        "last_action_result": "Execution failed: handoff_create_skill() got an unexpected keyword argument '@type:coder, @role:analyst, @task:system_design_analysis_details, @priority:normal, @details:{'analysis_type':'performance', 'platform':'AI_system'}'",
+        "last_action": {
+          "action_type": "handoff_create",
+          "target_id": null,
+          "parameters": {
+            "target_agent_id": "agent_7504f640",
+            "@type:coder, @role:analyst, @task:system_design_analysis_details, @priority:normal, @details:{'analysis_type':'performance', 'platform':'AI_system'}": "",
+            "message": "Please review the system design analysis details for performance on AI platform. Details are provided."
+          }
+        },
+        "stigmergy_deposits": []
+      },
+      "state": {
+        "role": "coordinator",
+        "active_skills": [
+          "graph_query",
+          "graph_update",
+          "handoff_create",
+          "spawn_sub_agent",
+          "set_control_mode"
+        ],
+        "available_tools": [
+          "read_file",
+          "list_dir",
+          "query_swarm_emergence",
+          "create_handoff_edge"
+        ],
+        "beliefs": {},
+        "short_term_memory": [],
+        "inbox": []
+      },
+      "metadata": {}
+    },
+    {
+      "id": "agent_7504f640",
+      "resources": {
+        "energy": 78.5
+      },
+      "opinions": {
+        "main": 0.0
+      },
+      "goals": [],
+      "control_mode": "EMERGENCE",
+      "local_memory": {
+        "last_thought": "I am currently idle with 80.0 energy out of 100.0. The swarm active goal is to coordinate and assign system design analysis. I have a capability to write Python scripts, which aligns with this task. However, the current context does not provide me with any specific details about what kind of system design analysis needs to be done or how it should be executed.",
+        "last_decision_reason": "Given the current lack of specific details about the task, I am in a state of idling to conserve energy and await further instructions or context that would allow me to execute a meaningful action.",
+        "last_confidence": 0.95,
+        "last_action": {
+          "action_type": "idle",
+          "target_id": null,
+          "parameters": {}
+        },
+        "stigmergy_deposits": []
+      },
+      "state": {
+        "role": "coder",
+        "active_skills": [
+          "code_execution",
+          "file_io"
+        ],
+        "available_tools": [
+          "write_file",
+          "execute_python_snippet",
+          "create_handoff_edge"
+        ],
+        "inbox": [
+          {
+            "sender_id": "agent_f47aa8ff",
+            "message": "Please write a python snippet that calculates the factorial of 5 and execute it.",
+            "meta": {},
+            "read": true
+          }
+        ],
+        "beliefs": {},
+        "short_term_memory": []
+      },
+      "metadata": {}
+    },
+    {
+      "id": "agent_b0b8b0d1",
+      "resources": {
+        "energy": 79.0
+      },
+      "opinions": {
+        "main": 0.0
+      },
+      "goals": [],
+      "control_mode": "EMERGENCE",
+      "local_memory": {
+        "last_action": {
+          "action_type": "idle",
+          "target_id": null,
+          "parameters": {}
+        },
+        "last_decision_reason": "Agent inactive this tick; rule-based conserving state.",
+        "stigmergy_deposits": []
+      },
+      "state": {
+        "role": "reviewer",
+        "active_skills": [
+          "file_io",
+          "self_reflect_and_emergence_update"
+        ],
+        "available_tools": [
+          "read_file",
+          "create_handoff_edge"
+        ],
+        "inbox": []
+      },
+      "metadata": {}
+    }
+  ],
+  "edges_state": [
+    {
+      "source_id": "agent_f47aa8ff",
+      "target_id": "agent_7504f640",
+      "weight": 1.5,
+      "edge_type": "COMMAND",
+      "strength": 1.0,
+      "last_updated": 1782885093.041388,
+      "usage_count": 0,
+      "metadata": {},
+      "class_name": "AdaptiveEdge"
+    },
+    {
+      "source_id": "agent_7504f640",
+      "target_id": "agent_f47aa8ff",
+      "weight": 0.975,
+      "edge_type": "COMMUNICATION",
+      "strength": 1.0,
+      "last_updated": 1782885093.0413945,
+      "usage_count": 0,
+      "metadata": {},
+      "class_name": "EmergenceEdge"
+    },
+    {
+      "source_id": "agent_f47aa8ff",
+      "target_id": "agent_b0b8b0d1",
+      "weight": 1.5,
+      "edge_type": "COMMAND",
+      "strength": 1.0,
+      "last_updated": 1782885093.041526,
+      "usage_count": 0,
+      "metadata": {},
+      "class_name": "AdaptiveEdge"
+    },
+    {
+      "source_id": "agent_b0b8b0d1",
+      "target_id": "agent_f47aa8ff",
+      "weight": 0.975,
+      "edge_type": "COMMUNICATION",
+      "strength": 1.0,
+      "last_updated": 1782885093.0415304,
+      "usage_count": 0,
+      "metadata": {},
+      "class_name": "EmergenceEdge"
+    }
+  ],
+  "provenance_chain": [
+    {
+      "index": 0,
+      "timestamp": 1782885093.041108,
+      "delta": {
+        "timestamp": 1782885093.041108,
+        "actor": "swarm_orchestrator",
+        "operation": "spawn_dynamic_agent",
+        "target": "agent_f47aa8ff",
+        "before": null,
+        "after": {
+          "id": "agent_f47aa8ff",
+          "role": "coordinator",
+          "skills": [
+            "graph_query",
+            "graph_update",
+            "handoff_create",
+            "spawn_sub_agent",
+            "set_control_mode"
+          ],
+          "tools": [
+            "read_file",
+            "list_dir",
+            "query_swarm_emergence",
+            "create_handoff_edge"
+          ],
+          "parent_id": null
+        },
+        "meta": {
+          "emergence_boost": 0.1
+        }
+      },
+      "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "current_hash": "b1b052dd83f2fdd48abcecc5cfe23a76a8707c80b8ec92a00119ebd1e59102d5"
+    },
+    {
+      "index": 1,
+      "timestamp": 1782885093.0414238,
+      "delta": {
+        "timestamp": 1782885093.0414238,
+        "actor": "swarm_orchestrator",
+        "operation": "spawn_dynamic_agent",
+        "target": "agent_7504f640",
+        "before": null,
+        "after": {
+          "id": "agent_7504f640",
+          "role": "coder",
+          "skills": [
+            "code_execution",
+            "file_io"
+          ],
+          "tools": [
+            "write_file",
+            "execute_python_snippet",
+            "create_handoff_edge"
+          ],
+          "parent_id": "agent_f47aa8ff"
+        },
+        "meta": {
+          "emergence_boost": 0.1
+        }
+      },
+      "previous_hash": "b1b052dd83f2fdd48abcecc5cfe23a76a8707c80b8ec92a00119ebd1e59102d5",
+      "current_hash": "cfbea06fec097e9d909450a92466e8474ebf624f7e33a2cf89fc7062c7d46a57"
+    },
+    {
+      "index": 2,
+      "timestamp": 1782885093.0415335,
+      "delta": {
+        "timestamp": 1782885093.0415335,
+        "actor": "swarm_orchestrator",
+        "operation": "spawn_dynamic_agent",
+        "target": "agent_b0b8b0d1",
+        "before": null,
+        "after": {
+          "id": "agent_b0b8b0d1",
+          "role": "reviewer",
+          "skills": [
+            "file_io",
+            "self_reflect_and_emergence_update"
+          ],
+          "tools": [
+            "read_file",
+            "create_handoff_edge"
+          ],
+          "parent_id": "agent_f47aa8ff"
+        },
+        "meta": {
+          "emergence_boost": 0.1
+        }
+      },
+      "previous_hash": "cfbea06fec097e9d909450a92466e8474ebf624f7e33a2cf89fc7062c7d46a57",
+      "current_hash": "7abf2d29f17edfc6e47f6623bf41a09a5d45c6e19de367bcfb60b5a7d20a42d6"
+    },
+    {
+      "index": 3,
+      "timestamp": 1782885193.7040253,
+      "delta": {
+        "timestamp": 1782885193.7040253,
+        "actor": "swarm_engine",
+        "operation": "hybrid_step",
+        "target": "1",
+        "before": {
+          "agent_f47aa8ff": {
+            "resources": {
+              "energy": 80.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_7504f640": {
+            "resources": {
+              "energy": 80.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_b0b8b0d1": {
+            "resources": {
+              "energy": 80.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          }
+        },
+        "after": {
+          "agent_f47aa8ff": {
+            "resources": {
+              "energy": 76.5
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_7504f640": {
+            "resources": {
+              "energy": 78.5
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_b0b8b0d1": {
+            "resources": {
+              "energy": 79.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          }
+        },
+        "meta": {
+          "transfers_executed": 0,
+          "starving_count": 0,
+          "active_modes": {
+            "HIERARCHICAL": 0,
+            "DECENTRALIZED": 0,
+            "STIGMERGIC": 0,
+            "EMERGENCE": 3
+          }
+        }
+      },
+      "previous_hash": "7abf2d29f17edfc6e47f6623bf41a09a5d45c6e19de367bcfb60b5a7d20a42d6",
+      "current_hash": "7127fbbe74140cd237b93d877215d3bd7f696471d3596529d566c2b347b1ec0d"
+    }
+  ],
+  "metadata": {
+    "active_goals": [
+      "Coordinate and assign system design analysis."
+    ],
+    "swarm_name": "swarm-alpha"
+  }
+}

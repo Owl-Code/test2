@@ -1,0 +1,21 @@
+# Graph Swarm Harness Configuration
+
+# Target local LLM tag inside Ollama
+model_name: "qwen2.5:3b-instruct"
+
+# Allowed path boundary for file operations
+workspace_root: "c:\\Users\\paule\\AI\\graph"
+
+# Directory where JSON checkpoints are serialized
+checkpoint_dir: "c:\\Users\\paule\\AI\\graph\\artifacts\\checkpoints"
+
+# Set to True to skip interactive human confirmation on file writes and execution
+auto_confirm_high_risk: false
+
+# Sparse activation: maximum number of active agents queried via LLM per step
+max_active_agents_per_tick: 2
+
+# Heuristics for adaptive control mode switches
+mode_switching:
+  target_cohesion: 0.85
+  emergency_energy_threshold: 35.0

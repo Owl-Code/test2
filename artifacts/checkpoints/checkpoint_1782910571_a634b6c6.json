@@ -1,0 +1,430 @@
+{
+  "timestamp": 1782910571.1752994,
+  "checkpoint_id": "a634b6c6-32bf-410a-9f55-543bc7bdc541",
+  "state_hash": "fa2e781b253ee4097ebf5384144f1873553be5b74aaf65dff4aec07d93addbd6",
+  "nodes_state": [
+    {
+      "id": "agent_cfe1bbe4",
+      "resources": {
+        "energy": 76.5
+      },
+      "opinions": {
+        "main": 0.0
+      },
+      "goals": [],
+      "control_mode": "EMERGENCE",
+      "local_memory": {
+        "last_thought": "I am currently in a coordinator role with active goals. I have neighbors who can help me achieve these goals, such as an agent_coder_971f4622 (coder) and agent_review_e1608aa7 (reviewer). My current energy level is 80.0/100.0 and my emergence contribution is 0.32. Given the active goal context, I should prioritize task delegation to ensure efficient progress towards our goals.",
+        "last_decision_reason": "Delegating the task of writing a Python script to analyze the workspace contents to my coder neighbor, ensuring efficient progress towards our system design goals.",
+        "last_confidence": 0.95,
+        "last_action_result": "Error: Target agent agent_coder_971f4622 not found.",
+        "last_action": {
+          "action_type": "create_handoff_edge",
+          "target_id": null,
+          "parameters": {
+            "target_agent_id": "agent_coder_971f4622",
+            "message": "Please write a python script called system_analyzer.py that parses workspace contents."
+          }
+        },
+        "stigmergy_deposits": []
+      },
+      "state": {
+        "role": "coordinator",
+        "active_skills": [
+          "graph_query",
+          "graph_update",
+          "handoff_create",
+          "spawn_sub_agent",
+          "set_control_mode"
+        ],
+        "available_tools": [
+          "query_swarm_emergence",
+          "create_handoff_edge",
+          "reply_to_operator",
+          "create_new_role"
+        ],
+        "beliefs": {
+          "persona": "You are the central planner. Decompose complex goals, delegate tasks to worker agents, and verify completion."
+        },
+        "short_term_memory": [],
+        "inbox": []
+      },
+      "metadata": {}
+    },
+    {
+      "id": "agent_971f4622",
+      "resources": {
+        "energy": 76.5
+      },
+      "opinions": {
+        "main": 0.0
+      },
+      "goals": [],
+      "control_mode": "EMERGENCE",
+      "local_memory": {
+        "last_thought": "I am currently active with a goal of 'Goal B' but have no specific details about this goal or any local files to interact with. I should first check if there are any messages in my inbox from the operator.",
+        "last_decision_reason": "First action should be to inform the operator of my readiness without any specific actions yet.",
+        "last_confidence": 0.95,
+        "last_action_result": "Reply successfully registered for the operator.",
+        "last_action": {
+          "action_type": "reply_to_operator",
+          "target_id": null,
+          "parameters": {
+            "message": "Hello operator! My current context is clear, and I am ready to execute tasks as directed."
+          }
+        },
+        "stigmergy_deposits": []
+      },
+      "state": {
+        "role": "coder",
+        "active_skills": [
+          "code_execution",
+          "file_io"
+        ],
+        "available_tools": [
+          "write_file",
+          "execute_python_snippet",
+          "create_handoff_edge",
+          "reply_to_operator"
+        ],
+        "beliefs": {
+          "persona": "You are a code-focused specialist. Write correct, clean, optimized, and thoroughly tested python scripts."
+        },
+        "inbox": [],
+        "short_term_memory": []
+      },
+      "metadata": {}
+    },
+    {
+      "id": "agent_e1608aa7",
+      "resources": {
+        "energy": 79.0
+      },
+      "opinions": {
+        "main": 0.0
+      },
+      "goals": [],
+      "control_mode": "EMERGENCE",
+      "local_memory": {
+        "last_thought": "Resting/Conserving state",
+        "last_decision_reason": "Agent inactive this tick; rule-based conserving state.",
+        "last_action": {
+          "action_type": "idle",
+          "target_id": null,
+          "parameters": {}
+        },
+        "stigmergy_deposits": []
+      },
+      "state": {
+        "role": "reviewer",
+        "active_skills": [
+          "file_io",
+          "self_reflect_and_emergence_update"
+        ],
+        "available_tools": [
+          "read_file",
+          "create_handoff_edge",
+          "reply_to_operator"
+        ],
+        "beliefs": {
+          "persona": "You are a reviewer. Audit local scripts for edge cases, performance bottlenecks, clean structure, and security risks."
+        },
+        "inbox": []
+      },
+      "metadata": {}
+    }
+  ],
+  "edges_state": [
+    {
+      "source_id": "agent_cfe1bbe4",
+      "target_id": "agent_971f4622",
+      "weight": 1.5,
+      "edge_type": "COMMAND",
+      "strength": 1.0,
+      "last_updated": 1782910413.0790365,
+      "usage_count": 0,
+      "metadata": {},
+      "class_name": "AdaptiveEdge"
+    },
+    {
+      "source_id": "agent_971f4622",
+      "target_id": "agent_cfe1bbe4",
+      "weight": 0.975,
+      "edge_type": "COMMUNICATION",
+      "strength": 1.0,
+      "last_updated": 1782910413.0790427,
+      "usage_count": 0,
+      "metadata": {},
+      "class_name": "EmergenceEdge"
+    },
+    {
+      "source_id": "agent_cfe1bbe4",
+      "target_id": "agent_e1608aa7",
+      "weight": 1.5,
+      "edge_type": "COMMAND",
+      "strength": 1.0,
+      "last_updated": 1782910413.0791209,
+      "usage_count": 0,
+      "metadata": {},
+      "class_name": "AdaptiveEdge"
+    },
+    {
+      "source_id": "agent_e1608aa7",
+      "target_id": "agent_cfe1bbe4",
+      "weight": 0.975,
+      "edge_type": "COMMUNICATION",
+      "strength": 1.0,
+      "last_updated": 1782910413.0791276,
+      "usage_count": 0,
+      "metadata": {},
+      "class_name": "EmergenceEdge"
+    }
+  ],
+  "provenance_chain": [
+    {
+      "index": 0,
+      "timestamp": 1782910413.0788493,
+      "delta": {
+        "timestamp": 1782910413.0788493,
+        "actor": "swarm_orchestrator",
+        "operation": "spawn_dynamic_agent",
+        "target": "agent_cfe1bbe4",
+        "before": null,
+        "after": {
+          "id": "agent_cfe1bbe4",
+          "role": "coordinator",
+          "skills": [
+            "graph_query",
+            "graph_update",
+            "handoff_create",
+            "spawn_sub_agent",
+            "set_control_mode"
+          ],
+          "tools": [
+            "query_swarm_emergence",
+            "create_handoff_edge",
+            "reply_to_operator",
+            "create_new_role"
+          ],
+          "parent_id": null
+        },
+        "meta": {
+          "emergence_boost": 0.1
+        }
+      },
+      "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "current_hash": "56f2c675fbcd0155fcfa7dde2b1fea1babdbf32638f616d7b850ea03a04e1f99"
+    },
+    {
+      "index": 1,
+      "timestamp": 1782910413.0790462,
+      "delta": {
+        "timestamp": 1782910413.0790462,
+        "actor": "swarm_orchestrator",
+        "operation": "spawn_dynamic_agent",
+        "target": "agent_971f4622",
+        "before": null,
+        "after": {
+          "id": "agent_971f4622",
+          "role": "coder",
+          "skills": [
+            "code_execution",
+            "file_io"
+          ],
+          "tools": [
+            "write_file",
+            "execute_python_snippet",
+            "create_handoff_edge",
+            "reply_to_operator"
+          ],
+          "parent_id": "agent_cfe1bbe4"
+        },
+        "meta": {
+          "emergence_boost": 0.1
+        }
+      },
+      "previous_hash": "56f2c675fbcd0155fcfa7dde2b1fea1babdbf32638f616d7b850ea03a04e1f99",
+      "current_hash": "43ce631377ca3493e705a0240134845ff6613f7f6dcc3688a430f14d8914c7fe"
+    },
+    {
+      "index": 2,
+      "timestamp": 1782910413.0791306,
+      "delta": {
+        "timestamp": 1782910413.0791306,
+        "actor": "swarm_orchestrator",
+        "operation": "spawn_dynamic_agent",
+        "target": "agent_e1608aa7",
+        "before": null,
+        "after": {
+          "id": "agent_e1608aa7",
+          "role": "reviewer",
+          "skills": [
+            "file_io",
+            "self_reflect_and_emergence_update"
+          ],
+          "tools": [
+            "read_file",
+            "create_handoff_edge",
+            "reply_to_operator"
+          ],
+          "parent_id": "agent_cfe1bbe4"
+        },
+        "meta": {
+          "emergence_boost": 0.1
+        }
+      },
+      "previous_hash": "43ce631377ca3493e705a0240134845ff6613f7f6dcc3688a430f14d8914c7fe",
+      "current_hash": "97c967b91328a19c4adcbf9de7ba5d772b4e1319a3b0692b2578eaff9a8eb3ef"
+    },
+    {
+      "index": 3,
+      "timestamp": 1782910483.649531,
+      "delta": {
+        "timestamp": 1782910483.649531,
+        "actor": "agent_971f4622",
+        "operation": "reply_to_operator",
+        "target": "operator",
+        "before": null,
+        "after": {
+          "message": "Hello operator! My current context is clear, and I am ready to execute tasks as directed."
+        },
+        "meta": {}
+      },
+      "previous_hash": "97c967b91328a19c4adcbf9de7ba5d772b4e1319a3b0692b2578eaff9a8eb3ef",
+      "current_hash": "79d91ed72487e353e3ad62673e09c8c729f453404f64edc424eb3c3af225f85c"
+    },
+    {
+      "index": 4,
+      "timestamp": 1782910483.6496992,
+      "delta": {
+        "timestamp": 1782910483.6496992,
+        "actor": "agent_971f4622",
+        "operation": "execute_tool",
+        "target": "reply_to_operator",
+        "before": null,
+        "after": {
+          "args": {
+            "message": "Hello operator! My current context is clear, and I am ready to execute tasks as directed."
+          },
+          "result": "Reply successfully registered for the operator."
+        },
+        "meta": {
+          "confidence": 0.95
+        }
+      },
+      "previous_hash": "79d91ed72487e353e3ad62673e09c8c729f453404f64edc424eb3c3af225f85c",
+      "current_hash": "76a4465735ec007cee5ecf2ffade2f66e34a8f5a506d3d159730260eaa8b8530"
+    },
+    {
+      "index": 5,
+      "timestamp": 1782910571.1715467,
+      "delta": {
+        "timestamp": 1782910571.1715467,
+        "actor": "agent_cfe1bbe4",
+        "operation": "execute_tool",
+        "target": "create_handoff_edge",
+        "before": null,
+        "after": {
+          "args": {
+            "target_agent_id": "agent_coder_971f4622",
+            "message": "Please write a python script called system_analyzer.py that parses workspace contents."
+          },
+          "result": "Error: Target agent agent_coder_971f4622 not found."
+        },
+        "meta": {
+          "confidence": 0.95
+        }
+      },
+      "previous_hash": "76a4465735ec007cee5ecf2ffade2f66e34a8f5a506d3d159730260eaa8b8530",
+      "current_hash": "f3024d023fa4a4819d6a74659dbbb150c687e7516ead06144753630733f39958"
+    },
+    {
+      "index": 6,
+      "timestamp": 1782910571.1743736,
+      "delta": {
+        "timestamp": 1782910571.1743736,
+        "actor": "swarm_engine",
+        "operation": "hybrid_step",
+        "target": "1",
+        "before": {
+          "agent_cfe1bbe4": {
+            "resources": {
+              "energy": 77.5
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_971f4622": {
+            "resources": {
+              "energy": 77.5
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_e1608aa7": {
+            "resources": {
+              "energy": 80.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          }
+        },
+        "after": {
+          "agent_cfe1bbe4": {
+            "resources": {
+              "energy": 76.5
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_971f4622": {
+            "resources": {
+              "energy": 76.5
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_e1608aa7": {
+            "resources": {
+              "energy": 79.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          }
+        },
+        "meta": {
+          "transfers_executed": 0,
+          "starving_count": 0,
+          "active_modes": {
+            "HIERARCHICAL": 0,
+            "DECENTRALIZED": 0,
+            "STIGMERGIC": 0,
+            "EMERGENCE": 3
+          }
+        }
+      },
+      "previous_hash": "f3024d023fa4a4819d6a74659dbbb150c687e7516ead06144753630733f39958",
+      "current_hash": "277ad6c197efe69a37338e7f983ec8665f593923b84a2c6b43fa167b47b6bfcb"
+    }
+  ],
+  "metadata": {
+    "active_goals": [
+      "Goal B"
+    ],
+    "chat_replies": [
+      {
+        "sender": "agent_971f4622 (coder)",
+        "text": "Hello operator! My current context is clear, and I am ready to execute tasks as directed.",
+        "timestamp": 1782910483
+      }
+    ],
+    "intra_swarm_messages": [],
+    "swarm_name": "swarm-alpha"
+  }
+}

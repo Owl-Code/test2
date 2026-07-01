@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Graph Swarm Dashboard</title>
+    <!-- Premium Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Space+Mono&display=swap" rel="stylesheet">
+    <!-- Cytoscape for Network Visualization -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.26.0/cytoscape.min.js"></script>
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --panel-bg: rgba(17, 24, 39, 0.7);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --accent-cyan: #06b6d4;
+            --accent-green: #10b981;
+            --accent-yellow: #f59e0b;
+            --accent-red: #ef4444;
+            --accent-purple: #8b5cf6;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            background-image: radial-gradient(circle at 10% 20%, rgba(6, 182, 212, 0.05) 0%, transparent 40%),
+                              radial-gradient(circle at 90% 80%, rgba(139, 92, 246, 0.05) 0%, transparent 40%);
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 10;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header-metrics {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+
+        .metric-badge {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 6px 12px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .badge-value {
+            font-weight: 600;
+            color: var(--accent-cyan);
+        }
+
+        .status-secure {
+            color: var(--accent-green);
+        }
+
+        .main-container {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 1.25fr 1fr;
+            gap: 16px;
+            padding: 16px;
+            height: calc(100vh - 73px);
+            overflow: hidden;
+        }
+
+        .column {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            overflow: hidden;
+        }
+
+        .panel {
+            background: var(--panel-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .panel-header {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--accent-cyan);
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #cy-container {
+            flex: 1;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        /* Controls Panel */
+        .controls-row {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        button {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 18px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            outline: none;
+            box-shadow: 0 4px 14px rgba(6, 182, 212, 0.3);
+        }
+
+        button:hover:not(:disabled) {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        button:active:not(:disabled) {
+            transform: translateY(0);
+        }
+
+        button:disabled {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-muted);
+            box-shadow: none;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        button.btn-secondary {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            box-shadow: none;
+        }
+
+        button.btn-secondary:hover:not(:disabled) {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Forms */
+        .form-group {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        input, textarea, select {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            border-radius: 6px;
+            padding: 8px 12px;
+            font-family: inherit;
+            font-size: 14px;
+            width: 100%;
+            outline: none;
+            transition: border 0.2s ease;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            border-color: var(--accent-cyan);
+        }
+
+        /* Tables */
+        .table-wrapper {
+            flex: 1;
+            overflow-y: auto;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            text-align: left;
+        }
+
+        th {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 10px 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        td {
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        /* Terminals / Logs */
+        .terminal {
+            font-family: 'Space Mono', monospace;
+            background: #05070c;
+            color: #d1d5db;
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 13px;
+            line-height: 1.5;
+            overflow-y: auto;
+            flex: 1;
+            border: 1px solid var(--border-color);
+            white-space: pre-wrap;
+        }
+
+        /* Tabs */
+        .tabs-header {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 12px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 6px;
+        }
+
+        .tab {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 4px 8px;
+            transition: color 0.2s ease;
+        }
+
+        .tab.active {
+            color: var(--accent-cyan);
+            border-bottom: 2px solid var(--accent-cyan);
+        }
+
+        .tab-content {
+            display: none;
+            flex: 1;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .tab-content.active {
+            display: flex;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Graph Swarm Orchestrator</h1>
+        <div class="header-metrics">
+            <div class="metric-badge">
+                <span>Tick:</span>
+                <span class="badge-value" id="header-tick">#0</span>
+            </div>
+            <div class="metric-badge">
+                <span>Emergence:</span>
+                <span class="badge-value" id="header-emergence">0.0000</span>
+            </div>
+            <div class="metric-badge">
+                <span>Audit Chain:</span>
+                <span class="badge-value status-secure" id="header-audit">SECURE</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!-- Left Column: Graph Visualizer and Workspace Configuration tabs -->
+        <div class="column">
+            <div class="panel" style="flex: 1.8;">
+                <div class="panel-header">
+                    <span>Swarm Network Topology</span>
+                    <div class="controls-row">
+                        <button class="btn-secondary" id="btn-layout">Re-Layout</button>
+                    </div>
+                </div>
+                <div id="cy-container"></div>
+            </div>
+            
+            <div class="panel" style="flex: 1.2;">
+                <div class="tabs-header">
+                    <span class="tab active" data-tab="goals-tab">Swarm Goals</span>
+                    <span class="tab" data-tab="roles-tab">Role Config Manager</span>
+                    <span class="tab" data-tab="editor-tab">Workspace Editor</span>
+                </div>
+                
+                <!-- Goals Tab -->
+                <div class="tab-content active" id="goals-tab">
+                    <div class="form-group">
+                        <input type="text" id="input-goal" placeholder="Inject new objective goal...">
+                        <button id="btn-add-goal">Inject</button>
+                    </div>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Objective Goal Description</th>
+                                    <th style="width: 80px; text-align: center;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="goals-list">
+                                <!-- Goals go here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Roles Tab -->
+                <div class="tab-content" id="roles-tab">
+                    <div class="form-group" style="margin-bottom: 12px;">
+                        <label for="select-role" style="font-size: 14px; margin-right: 8px; align-self: center;">Role Template:</label>
+                        <select id="select-role" style="width: auto;">
+                            <option value="coordinator">Coordinator</option>
+                            <option value="coder">Coder</option>
+                            <option value="reviewer">Reviewer</option>
+                            <option value="system_designer">System Designer</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="role-skills" placeholder="Skills (comma separated)...">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="role-tools" placeholder="Tools (comma separated)...">
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <textarea id="role-persona" placeholder="System persona instructions..." style="resize: none;"></textarea>
+                    </div>
+                    <div class="form-group" style="justify-content: flex-end;">
+                        <button id="btn-save-role">Save Role Template</button>
+                    </div>
+                </div>
+
+                <!-- Workspace Editor Tab -->
+                <div class="tab-content" id="editor-tab">
+                    <div style="display: grid; grid-template-columns: 1fr 2.5fr; gap: 12px; flex: 1; overflow: hidden;">
+                        <div class="table-wrapper" style="max-height: 100%;">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>File Name</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="files-list">
+                                    <!-- Files list -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 8px; height: 100%;">
+                            <span id="editor-filename" style="font-size: 13px; color: var(--accent-cyan); font-family: monospace;">No file selected</span>
+                            <textarea id="editor-textarea" style="flex: 1; font-family: 'Space Mono', monospace; font-size: 13px; resize: none; background: #05070c; color: #d1d5db;" placeholder="Select a file from the list to view/edit..."></textarea>
+                            <div style="display: flex; justify-content: flex-end;">
+                                <button id="btn-save-file" disabled>Save File</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column: Controls, Active Agents, Logs, History -->
+        <div class="column">
+            <div class="panel" style="flex: 1.2;">
+                <div class="panel-header">
+                    <span>Orchestration Control Panel</span>
+                    <div class="controls-row">
+                        <select id="loop-delay" style="width: auto;">
+                            <option value="2.0">2s loop</option>
+                            <option value="4.0" selected>4s loop</option>
+                            <option value="8.0">8s loop</option>
+                        </select>
+                        <button class="btn-secondary" id="btn-loop">Start Auto Loop</button>
+                        <button id="btn-tick">Step Swarm</button>
+                    </div>
+                </div>
+                
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Agent ID</th>
+                                <th>Role</th>
+                                <th>Energy</th>
+                                <th>Opinion</th>
+                                <th>Last Thought / Rationale</th>
+                            </tr>
+                        </thead>
+                        <tbody id="agents-list">
+                            <!-- Agents list -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="panel" style="flex: 1.8;">
+                <div class="tabs-header">
+                    <span class="tab active" data-tab="logs-tab">Live execution Log</span>
+                    <span class="tab" data-tab="audit-tab">Audit Provenance Trail</span>
+                    <span class="tab" data-tab="history-tab">Checkpoint History</span>
+                    <span class="tab" data-tab="chat-tab">Swarm Chat</span>
+                    <span class="tab" data-tab="intra-tab">Intra-Swarm Feed</span>
+                </div>
+                
+                <!-- Live execution Log -->
+                <div class="tab-content active" id="logs-tab">
+                    <div class="terminal" id="terminal-logs">=== Dashboard Initialized. Waiting for events... ===</div>
+                </div>
+                
+                <!-- Audit Provenance Trail -->
+                <div class="tab-content" id="audit-tab">
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Index</th>
+                                    <th>Actor</th>
+                                    <th>Operation</th>
+                                    <th>Target</th>
+                                    <th>Current State SHA Hash</th>
+                                </tr>
+                            </thead>
+                            <tbody id="audit-list">
+                                <!-- Audit list -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Checkpoint History -->
+                <div class="tab-content" id="history-tab">
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Tick</th>
+                                    <th>SHA256 Hash</th>
+                                    <th>Emergence</th>
+                                    <th>Revert State</th>
+                                </tr>
+                            </thead>
+                            <tbody id="history-list">
+                                <!-- Database checkpoints -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Swarm Chat -->
+                <div class="tab-content" id="chat-tab">
+                    <div style="display: flex; flex-direction: column; flex: 1; overflow: hidden; height: 100%;">
+                        <div id="chat-messages" style="flex: 1; overflow-y: auto; background: #05070c; border: 1px solid var(--border-color); border-radius: 8px; padding: 12px; margin-bottom: 8px; display: flex; flex-direction: column; gap: 8px; min-height: 200px;">
+                            <div style="color: var(--text-muted); font-size: 13px; text-align: center; margin-top: 10px;">
+                                Send a message directive to the coordinator agent inbox.
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <input type="text" id="input-chat" placeholder="Type message for coordinator agent...">
+                            <button id="btn-send-chat">Send</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Intra-Swarm Feed -->
+                <div class="tab-content" id="intra-tab">
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th style="width: 150px;">Sender</th>
+                                    <th style="width: 150px;">Target</th>
+                                    <th>Message Payload / Handoff Task</th>
+                                </tr>
+                            </thead>
+                            <tbody id="intra-list">
+                                <!-- Agent-to-agent DMs go here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Frontend logic link -->
+    <script src="/static/app.js"></script>
+</body>
+</html>

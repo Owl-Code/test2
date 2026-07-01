@@ -1,0 +1,148 @@
+{
+  "timestamp": 1782904155.253202,
+  "checkpoint_id": "e3a4aaef-b672-498f-99c8-3ad9c860054b",
+  "state_hash": "da95dbb34aaaf2eaa5cb35004ed00553d339c5e0ab637c0b52d5e3b26fbc669b",
+  "nodes_state": [
+    {
+      "id": "agent_1b4bcdbd",
+      "resources": {
+        "energy": 78.5
+      },
+      "opinions": {
+        "main": 0.0
+      },
+      "goals": [],
+      "control_mode": "EMERGENCE",
+      "local_memory": {
+        "last_thought": "I am currently in a low-energy state (15.0/100.0) which suggests I should prioritize conserving energy to avoid metabolic decay. My active goals are to coordinate system design analysis and improve my understanding of what improvements can be made. However, I do not have any immediate tasks or resources that require action at this moment.",
+        "last_decision_reason": "Given my current low energy state and the absence of active goals, idling conserves energy without compromising the swarm's overall efficiency or alignment with emergent behaviors.",
+        "last_confidence": 0.98,
+        "last_action": {
+          "action_type": "idle",
+          "target_id": null,
+          "parameters": {}
+        },
+        "stigmergy_deposits": []
+      },
+      "state": {
+        "role": "coordinator",
+        "active_skills": [
+          "graph_query",
+          "graph_update",
+          "handoff_create",
+          "spawn_sub_agent",
+          "set_control_mode"
+        ],
+        "available_tools": [
+          "query_swarm_emergence",
+          "create_handoff_edge"
+        ],
+        "beliefs": {
+          "persona": "You are the central planner. Decompose complex goals, delegate tasks to worker agents, and verify completion."
+        },
+        "short_term_memory": [],
+        "inbox": []
+      },
+      "metadata": {}
+    }
+  ],
+  "edges_state": [],
+  "provenance_chain": [
+    {
+      "index": 0,
+      "timestamp": 1782903946.3500497,
+      "delta": {
+        "timestamp": 1782903946.3500497,
+        "actor": "swarm_orchestrator",
+        "operation": "spawn_dynamic_agent",
+        "target": "agent_1b4bcdbd",
+        "before": null,
+        "after": {
+          "id": "agent_1b4bcdbd",
+          "role": "coordinator",
+          "skills": [
+            "graph_query",
+            "graph_update",
+            "handoff_create",
+            "spawn_sub_agent",
+            "set_control_mode"
+          ],
+          "tools": [
+            "query_swarm_emergence",
+            "create_handoff_edge"
+          ],
+          "parent_id": null
+        },
+        "meta": {
+          "emergence_boost": 0.1
+        }
+      },
+      "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "current_hash": "d8a95ed982ee65f0d903cf57d2c3648ce975c627e9af7f285f8bd0a53d9268e7"
+    },
+    {
+      "index": 1,
+      "timestamp": 1782904085.5716524,
+      "delta": {
+        "timestamp": 1782904085.5716524,
+        "actor": "operator",
+        "operation": "inject_goal",
+        "target": "research what should you do to improve?",
+        "before": null,
+        "after": "research what should you do to improve?",
+        "meta": {}
+      },
+      "previous_hash": "d8a95ed982ee65f0d903cf57d2c3648ce975c627e9af7f285f8bd0a53d9268e7",
+      "current_hash": "8b53b78d2fae156d915cfe1dfad1702d2127f66b4134e813562b5b714deb7c7c"
+    },
+    {
+      "index": 2,
+      "timestamp": 1782904155.2523124,
+      "delta": {
+        "timestamp": 1782904155.2523124,
+        "actor": "swarm_engine",
+        "operation": "hybrid_step",
+        "target": "2",
+        "before": {
+          "agent_1b4bcdbd": {
+            "resources": {
+              "energy": 80.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          }
+        },
+        "after": {
+          "agent_1b4bcdbd": {
+            "resources": {
+              "energy": 78.5
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          }
+        },
+        "meta": {
+          "transfers_executed": 0,
+          "starving_count": 0,
+          "active_modes": {
+            "HIERARCHICAL": 0,
+            "DECENTRALIZED": 0,
+            "STIGMERGIC": 0,
+            "EMERGENCE": 1
+          }
+        }
+      },
+      "previous_hash": "8b53b78d2fae156d915cfe1dfad1702d2127f66b4134e813562b5b714deb7c7c",
+      "current_hash": "e6aa8272a78ae57063bcb8be37e95976d43898ce2217b296347e39f0b4d189e4"
+    }
+  ],
+  "metadata": {
+    "active_goals": [
+      "Coordinate and assign system design analysis.",
+      "research what should you do to improve?"
+    ],
+    "swarm_name": "swarm-alpha"
+  }
+}

@@ -1,0 +1,19 @@
+coordinator:
+  skills: [graph_query, graph_update, handoff_create, spawn_sub_agent, set_control_mode]
+  tools: [query_swarm_emergence, create_handoff_edge, reply_to_operator, create_new_role]
+  persona: "You are the central planner. Decompose complex goals, delegate tasks to worker agents, and verify completion."
+
+coder:
+  skills: [code_execution, file_io]
+  tools: [write_file, execute_python_snippet, create_handoff_edge, reply_to_operator]
+  persona: "You are a code-focused specialist. Write correct, clean, optimized, and thoroughly tested python scripts."
+
+reviewer:
+  skills: [file_io, self_reflect_and_emergence_update]
+  tools: [read_file, create_handoff_edge, reply_to_operator]
+  persona: "You are a reviewer. Audit local scripts for edge cases, performance bottlenecks, clean structure, and security risks."
+
+system_designer:
+  skills: [graph_query, set_control_mode]
+  tools: [query_swarm_emergence, reply_to_operator]
+  persona: "You are a system designer. Focus on architectural modularity, layout structure, design patterns, and systemic cohesion."
