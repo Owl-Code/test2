@@ -1,18 +1,22 @@
  """
 base_graph
-Dynamic Graph Swarm Harness — Foundational Primitives + Phase 1 & 2 SOTA Extensions
+Dynamic Graph Swarm Harness — Foundational Primitives + Phase 1, 2 & 3 SOTA Extensions
 
 This package provides the core building blocks for emergent, provenance-rich,
-hybrid-controlled swarm systems, extended with:
+hybrid-controlled swarm systems (the Graph Swarm Harness), extended with:
 
 Phase 1:
-- Dynamic 56-skill registry (skill_registry)
-- SHA-256 fs-graph checkpointing (fs_graph)
-- Emergence-gated MoE expert routing (expert_routing_hybrid)
-- Trophallaxis-aware planning handoffs (trophallaxis_planner_handoff)
+- Dynamic 56-skill registry
+- SHA-256 fs-graph checkpointing
+- Emergence-gated MoE expert routing
+- Trophallaxis-aware planning handoffs
 
-Phase 2 (started):
+Phase 2:
 - Production factory: create_recommended_swarm(num_agents=512, ...)
+- HybridControlSwarmGraph with nodes, health/metrics, and render_dashboard()
+
+Phase 3 (started):
+- Minimal textual dashboard rendering
 
 Posture: HYBRID | ADAPTIVE | trophallaxis_primed | v3.2.1-dev
 """
@@ -65,14 +69,24 @@ from .trophallaxis_planner_handoff import (
 )
 
 # =============================================================================
-# Phase 2 - Production Factory
+# Phase 2 - Production Factory & Graph Swarm Harness
 # =============================================================================
 
 from .factory import (
     HybridControlSwarmGraph,
     SwarmPosture,
+    EmergenceNode,
     create_recommended_swarm,
     create_recommended_swarm_cli,
+)
+
+# =============================================================================
+# Phase 3 - Textual Dashboard (observability starter)
+# =============================================================================
+
+from .textual_dashboard import (
+    render_textual_dashboard,
+    print_dashboard,
 )
 
 # =============================================================================
@@ -120,9 +134,14 @@ __all__ = [
     "create_trophallaxis_handoff_hook",
     "resource_aware_plan_handoff",
 
-    # Production Factory (Phase 2)
+    # Production Factory & Graph Swarm Harness (Phase 2)
     "HybridControlSwarmGraph",
     "SwarmPosture",
+    "EmergenceNode",
     "create_recommended_swarm",
     "create_recommended_swarm_cli",
+
+    # Textual Dashboard (Phase 3)
+    "render_textual_dashboard",
+    "print_dashboard",
 ]
