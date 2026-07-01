@@ -67,12 +67,8 @@ class HybridControlSwarmGraph:
     """
     Production-grade HybridControlSwarmGraph (Graph Swarm Harness).
 
-    Integrates Phase 1–3 capabilities:
-    - Dynamic skill registry
-    - SHA-256 fs-graph checkpointing
-    - Emergence-gated expert routing
-    - Trophallaxis-aware handoffs
-    - Health/metrics + integrated textual dashboard
+    Integrates Phase 1–3 capabilities and is designed to be usable both standalone
+    and as part of larger systems like graph_swarm_harness/.
     """
 
     def __init__(self, name: str = "recommended-swarm", num_agents: int = 512):
@@ -149,6 +145,7 @@ class HybridControlSwarmGraph:
         return self.posture
 
     def get_health(self) -> Dict[str, Any]:
+        """Return a concise health snapshot suitable for dashboards and external systems."""
         return {
             "name": self.name,
             "control_mode": self.control_mode,
@@ -166,6 +163,7 @@ class HybridControlSwarmGraph:
         }
 
     def get_metrics(self) -> Dict[str, Any]:
+        """Extended metrics for long-horizon observability."""
         health = self.get_health()
         health["metrics"] = {
             "emergence_trend": "increasing" if self.emergence_level > 0.7 else "stable",
@@ -176,6 +174,28 @@ class HybridControlSwarmGraph:
     def render_dashboard(self, width: int = 72) -> str:
         """Render integrated textual dashboard."""
         return render_textual_dashboard(self, width=width)
+
+    def to_observability_dict(self) -> Dict[str, Any]:
+        """Return a standardized dictionary suitable for integration with external dashboards
+        such as graph_swarm_harness/harness/dashboard.py."""
+        health = self.get_health()
+        metrics = self.get_metrics()
+
+        return {
+            "swarm_name": self.name,
+            "tick": None,  # Can be filled by caller
+            "emergence_level": health["emergence_level"],
+            "node_count": health["node_count"],
+            "edge_count": health["edge_count"],
+            "control_mode": health["control_mode"],
+            "posture": health["posture"],
+            "metrics": metrics.get("metrics", {}),
+            "last_checkpoint": health.get("last_checkpoint"),
+            "active_nodes_sample": [
+                {"id": nid, "role": node.role, "health": node.health}
+                for nid, node in list(self.nodes.items())[:5]
+            ],
+        }
 
     def add_node(self, node_id: str, **kwargs) -> EmergenceNode:
         node = EmergenceNode(id=node_id, **kwargs)
@@ -266,8 +286,9 @@ def create_recommended_swarm_cli():
 if __name__ == "__main__":
     swarm = create_recommended_swarm(num_agents=64, name="demo-swarm")
     print("Factory bootstrap complete.")
-    print("Swarm repr:", swarm)
+    print("Swarm:", swarm)
     result = swarm.hybrid_step({"task_complexity": 0.9})
     print("First step result:", result)
     print("\n" + swarm.render_dashboard())
     print("Health:", swarm.get_health())
+    print("Observability dict sample:", swarm.to_observability_dict())
