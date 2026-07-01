@@ -26,16 +26,16 @@ Posture: HYBRID | ADAPTIVE | trophallaxis_primed | v3.2.1+
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Any, Dict, Optional
+from typing import Any, Dict, List, Optional
 
 
 from .skill_registry import get_skill_registry_summary, list_available_skills
 
 from .fs_graph import save_checkpoint, checkpointed_hybrid_step
 
-from .expert_routing_hybrid import create_emergence_gated_router
+from .expert_routing_hybrid import create_emergence_gated_router, RoutingDecision
 
-from .trophallaxis_planner_handoff import create_trophallaxis_handoff_hook
+from .trophallaxis_planner_handoff import create_trophallaxis_handoff_hook, TrophallaxisTransfer
 
 
 @dataclass
@@ -52,59 +52,97 @@ class SwarmPosture:
     version: str = "3.2.1-dev"
 
 
+@dataclass
+class EmergenceNode:
+    """Lightweight placeholder node for the recommended swarm."""
+    id: str
+    opinions: Dict[str, float] = field(default_factory=dict)
+    health: float = 0.9
+    role: str = "generalist"
+
+
 class HybridControlSwarmGraph:
     """
-    Minimal production-grade HybridControlSwarmGraph skeleton.
+    Production-grade HybridControlSwarmGraph with Phase 1 & 2 capabilities wired in.
 
-    In a full implementation this would inherit from or compose the core
-    primitives (EmergenceNode, AdaptiveEdge, ProvenanceChain, etc.).
-    For Phase 2 bootstrap we provide a functional shell that wires the new
-    Phase 1 capabilities.
+    This is a functional skeleton that can be extended with the full core primitives
+    (EmergenceNode, AdaptiveEdge, ProvenanceChain, etc.) later.
     """
 
-    def __init__(self, name: str = "recommended-swarm"):
+    def __init__(self, name: str = "recommended-swarm", num_agents: int = 512):
         self.name = name
+        self.num_agents_target = num_agents
         self.control_mode = "HYBRID"
-        self.emergence_level = 0.0
+        self.emergence_level = 0.65
         self.posture = SwarmPosture()
         self._checkpoint_sha: Optional[str] = None
+
+        # Phase 1 modules wired
         self._router = create_emergence_gated_router(k=3, emergence_target=0.92)
-        self._trophallaxis_hook = create_trophallaxis_handoff_hook()
+        self._trophallaxis_hook = create_trophallaxis_handoff_hook(efficiency_base=0.87)
         self._skill_summary = get_skill_registry_summary()
 
+        # Lightweight internal graph
+        self.nodes: Dict[str, EmergenceNode] = {}
+        self.edges: List[Dict[str, str]] = []
+        self._initialize_minimal_graph(min(32, max(8, num_agents // 16)))
+
+    def _initialize_minimal_graph(self, node_count: int) -> None:
+        """Create a small set of placeholder nodes for bootstrap."""
+        for i in range(node_count):
+            node_id = f"node_{i:03d}"
+            self.nodes[node_id] = EmergenceNode(
+                id=node_id,
+                opinions={"main": 0.1 * (i % 5 - 2)},
+                health=0.85 + 0.1 * (i % 3),
+                role="generalist" if i % 3 != 0 else "specialist",
+            )
+        # Create a few simple edges
+        node_ids = list(self.nodes.keys())
+        for i in range(min(len(node_ids) - 1, 12)):
+            self.edges.append({"source": node_ids[i], "target": node_ids[i + 1]})
+
     def hybrid_step(self, context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
-        """Run one hybrid control step with optional expert routing and checkpointing."""
-        context = context or {"emergence_level": self.emergence_level}
+        """Run one hybrid control step with expert routing + auto-checkpointing."""
+        context = context or {"emergence_level": self.emergence_level, "task_complexity": 0.7}
 
         # Sparse expert routing (Phase 1)
-        decision = self._router.route(
-            list(self._skill_summary.get("by_category", {}).keys())[:8],
+        decision: RoutingDecision = self._router.route(
+            list(self._skill_summary.get("by_category", {}).keys())[:10],
             context=context,
         )
 
-        # Simulate emergence growth
-        self.emergence_level = min(0.99, self.emergence_level + 0.015)
+        # Simulate emergence growth (stronger under hybrid mode)
+        growth = 0.018 if self.control_mode == "HYBRID" else 0.012
+        self.emergence_level = min(0.99, self.emergence_level + growth)
 
         result = {
             "step": "hybrid_step",
             "mode": self.control_mode,
             "emergence": round(self.emergence_level, 3),
             "experts_activated": decision.selected_experts,
+            "active_nodes": len(self.nodes),
         }
 
-        # Auto-checkpoint via fs_graph wrapper (Phase 1)
+        # Auto-checkpoint via fs_graph (Phase 1)
         checkpointed_hybrid_step(self, lambda s: result, auto_save=True)
 
         return result
 
     def set_control_mode(self, mode: str) -> None:
-        """Switch between HYBRID, DECENTRALIZED, HIERARCHICAL, etc."""
+        """Switch control regime."""
         self.control_mode = mode
         self.posture.mode = mode
 
     def get_posture(self) -> SwarmPosture:
         self.posture.emergence_target = round(self.emergence_level, 2)
         return self.posture
+
+    def add_node(self, node_id: str, **kwargs) -> EmergenceNode:
+        """Add a new node to the swarm."""
+        node = EmergenceNode(id=node_id, **kwargs)
+        self.nodes[node_id] = node
+        return node
 
     def checkpoint(self, name: Optional[str] = None) -> str:
         """Manual SHA256 checkpoint of current swarm state."""
@@ -113,6 +151,8 @@ class HybridControlSwarmGraph:
             "control_mode": self.control_mode,
             "emergence_level": self.emergence_level,
             "posture": self.posture.__dict__,
+            "node_count": len(self.nodes),
+            "edge_count": len(self.edges),
             "skill_summary": self._skill_summary,
         }
         sha, _ = save_checkpoint(state, name=name or f"{self.name}_manual")
@@ -129,25 +169,13 @@ def create_recommended_swarm(
     name: str = "recommended-swarm",
 ) -> HybridControlSwarmGraph:
     """
-    Recommended production bootstrap for Hybrid Control Swarm Harnesses.
+    Recommended production bootstrap for Hybrid Control Swarm Harnesses (v3.2.1+).
 
-    This is the canonical factory for creating swarms with the full v3.2.1+
-    posture and all Phase 1 capabilities pre-wired.
-
-    Args:
-        num_agents: Target scale (used for future large-graph optimizations).
-        use_fs_graph: Enable automatic SHA256 checkpointing.
-        enable_expert_routing: Enable EmergenceGatedRouter (sparse activation).
-        enable_trophallaxis_handoff: Enable resource-aware handoff hook.
-        expose_all_skills: Populate and expose the full 56-skill registry.
-        name: Human-readable swarm identifier.
-
-    Returns:
-        A fully configured HybridControlSwarmGraph instance.
+    This is the canonical factory. It wires all Phase 1 capabilities and returns
+    a ready-to-use HybridControlSwarmGraph with the full recommended posture.
     """
-    swarm = HybridControlSwarmGraph(name=name)
+    swarm = HybridControlSwarmGraph(name=name, num_agents=num_agents)
 
-    # Wire Phase 1 capabilities
     if expose_all_skills:
         swarm._skill_summary = get_skill_registry_summary()
 
@@ -160,7 +188,7 @@ def create_recommended_swarm(
     if enable_trophallaxis_handoff:
         swarm._trophallaxis_hook = create_trophallaxis_handoff_hook(efficiency_base=0.87)
 
-    # Initial posture sync
+    # Set full recommended posture
     swarm.posture = SwarmPosture(
         mode="HYBRID",
         adaptive=True,
@@ -173,14 +201,15 @@ def create_recommended_swarm(
         version="3.2.1-dev",
     )
 
-    # Immediate bootstrap checkpoint (fs_graph)
+    # Immediate bootstrap checkpoint
     if use_fs_graph:
         state = {
             "name": name,
             "num_agents_target": num_agents,
             "posture": swarm.posture.__dict__,
-            "skill_count": swarm._skill_summary.get("total_skills", 0),
+            "initial_node_count": len(swarm.nodes),
             "bootstrap_complete": True,
+            "skill_count": swarm._skill_summary.get("total_skills", 0),
         }
         sha, _ = save_checkpoint(state, name=f"{name}_bootstrap")
         swarm._checkpoint_sha = sha
@@ -188,10 +217,10 @@ def create_recommended_swarm(
     return swarm
 
 
-# CLI entry point (registered in pyproject.toml)
+# CLI entry point (registered in pyproject.toml as base-graph-bootstrap)
 
 def create_recommended_swarm_cli():
-    """CLI wrapper for `base-graph-bootstrap` entry point."""
+    """CLI wrapper for the `base-graph-bootstrap` console script."""
     import argparse
 
     parser = argparse.ArgumentParser(description="Bootstrap a recommended Hybrid Control Swarm")
@@ -201,14 +230,17 @@ def create_recommended_swarm_cli():
 
     swarm = create_recommended_swarm(num_agents=args.agents, name=args.name)
     print(f"Created recommended swarm: {swarm.name}")
+    print(f"Target agents: {swarm.num_agents_target}")
+    print(f"Initial nodes: {len(swarm.nodes)}")
     print(f"Posture: {swarm.get_posture().__dict__}")
-    print(f"Initial checkpoint: {swarm._checkpoint_sha}")
+    print(f"Bootstrap checkpoint: {swarm._checkpoint_sha}")
     return swarm
 
 
 if __name__ == "__main__":
-    swarm = create_recommended_swarm(num_agents=128, name="demo-factory-swarm")
+    swarm = create_recommended_swarm(num_agents=64, name="demo-factory-swarm")
     print("Factory bootstrap complete.")
     print("Posture:", swarm.get_posture().__dict__)
     result = swarm.hybrid_step({"task_complexity": 0.9})
     print("First hybrid_step result:", result)
+    print("Active nodes:", len(swarm.nodes))
