@@ -1,13 +1,18 @@
  """
 base_graph
-Dynamic Graph Swarm Harness — Foundational Primitives + Phase 1 SOTA Extensions
+Dynamic Graph Swarm Harness — Foundational Primitives + Phase 1 & 2 SOTA Extensions
 
 This package provides the core building blocks for emergent, provenance-rich,
-hybrid-controlled swarm systems, now extended with:
+hybrid-controlled swarm systems, extended with:
 
+Phase 1:
 - Dynamic 56-skill registry (skill_registry)
 - SHA-256 fs-graph checkpointing (fs_graph)
 - Emergence-gated MoE expert routing (expert_routing_hybrid)
+- Trophallaxis-aware planning handoffs (trophallaxis_planner_handoff)
+
+Phase 2 (started):
+- Production factory: create_recommended_swarm(num_agents=512, ...)
 
 Posture: HYBRID | ADAPTIVE | trophallaxis_primed | v3.2.1-dev
 """
@@ -18,7 +23,7 @@ __version__ = "3.2.1-dev"
 __posture__ = "HYBRID | ADAPTIVE | trophallaxis_primed | v3.2.1+"
 
 # =============================================================================
-# Phase 1 SOTA Extensions (new in this evolution)
+# Phase 1 SOTA Extensions
 # =============================================================================
 
 from .skill_registry import (
@@ -50,15 +55,31 @@ from .expert_routing_hybrid import (
     route_experts_for_step,
 )
 
+
+from .trophallaxis_planner_handoff import (
+    TrophallaxisPlannerHandoffHook,
+    TrophallaxisTransfer,
+    HandoffContext,
+    create_trophallaxis_handoff_hook,
+    resource_aware_plan_handoff,
+)
+
 # =============================================================================
-# Core Primitives (foundational - to be expanded from existing src/base_graph/core)
+# Phase 2 - Production Factory
 # =============================================================================
 
-# Placeholder re-exports for future core modules.
-# When core/hybrid_swarm.py, core/provenance.py, etc. are present,
-# they will be imported here for a unified top-level API.
+from .factory import (
+    HybridControlSwarmGraph,
+    SwarmPosture,
+    create_recommended_swarm,
+    create_recommended_swarm_cli,
+)
 
-# Example future imports (commented until core modules are mirrored/enhanced):
+# =============================================================================
+# Core Primitives (foundational - placeholder for future expansion)
+# =============================================================================
+
+# Future core imports will go here when src/base_graph/core/ is fully populated:
 # from .core.hybrid_swarm import HybridControlSwarmGraph, ControlMode, EmergenceNode
 # from .core.provenance import ProvenanceChain
 # from .primitives.edge import AdaptiveEdge, TrophallaxisEdge
@@ -91,4 +112,17 @@ __all__ = [
     "RoutingDecision",
     "create_emergence_gated_router",
     "route_experts_for_step",
+
+    # Trophallaxis Handoff (Phase 1)
+    "TrophallaxisPlannerHandoffHook",
+    "TrophallaxisTransfer",
+    "HandoffContext",
+    "create_trophallaxis_handoff_hook",
+    "resource_aware_plan_handoff",
+
+    # Production Factory (Phase 2)
+    "HybridControlSwarmGraph",
+    "SwarmPosture",
+    "create_recommended_swarm",
+    "create_recommended_swarm_cli",
 ]
