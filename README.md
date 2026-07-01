@@ -2,6 +2,12 @@
 
 > "This library exists to help humanity understand and build systems where intelligence emerges from local interactions, where swarms become antifragile through stigmergy and trophallaxis, where every decision carries provenance, and where hybrid control gives humans both powerful leverage and absolute override authority. We favor emergence and positive-sum dynamics over brittle central control."
 
+**SOTA Evolution Active on `grok_branch`**  
+See the live **[SOTA Development Plan](SOTA_DEVELOPMENT_PLAN.md)** for the complete phased roadmap to evolve this into the canonical production-grade **Hybrid Control Swarm Harness v3.2.1+** (full 56-skill dynamic exposure, 512-agent factory, live fs-graph SHA256 checkpoints, meta-skill-evolver, dashboard-graph, simulation-harness, constitutional alignment, and automated reporting).  
+
+**Current Posture**: `HYBRID | ADAPTIVE | trophallaxis_primed | fs-graph active | full_skill_exposure targeted | human_override=absolute`  
+**Pushing Protocol**: Every update is pushed immediately via connected GitHub tooling with full provenance in commit messages.
+
 `base_graph` is a production-grade, local-first Python package that realizes the foundational primitives for **Dynamic Graph Swarm Harnesses**. It provides the core structures for nodes, adaptive edges, local-decision routing, and information diffusion models.
 
 ---
@@ -66,8 +72,9 @@ graph TD
 Clone and install the package locally in editable mode:
 
 ```bash
-# Clone the repository
-cd graph
+# Clone the repository (or your fork)
+git clone -b grok_branch https://github.com/owl-code/test2.git
+cd test2
 
 # Setup virtual environment
 python -m venv .venv
@@ -117,6 +124,7 @@ To run all mathematical tests and execute the 5 core demo scripts:
 ```bash
 python scripts/validate_install.py
 ```
+
 This script will execute:
 1. `pytest` unit test runs.
 2. `01_simple_emergence.py` - Emergence level growth.
@@ -124,3 +132,25 @@ This script will execute:
 4. `03_stigmergy_foraging.py` - Pheromone path optimization.
 5. `04_hybrid_mode_switching.py` - Control mode handoffs.
 6. `05_trophallaxis_homeostasis.py` - Metabolic resource distributions.
+
+---
+
+## 6. Development Status & SOTA Roadmap (v3.2.1+)
+
+This repository is under active **SOTA evolution** on the `grok_branch`. The [SOTA Development Plan](SOTA_DEVELOPMENT_PLAN.md) defines a 6-phase roadmap with a strict **push-every-update** protocol:
+
+- **Phase 0 (Current)**: Bootstrap visibility — this plan + CI + pyproject enhancements (just pushed).
+- **Phase 1**: Full 56-skill dynamic registry, expert routing hybrid, fs-graph checkpoints, trophallaxis-planner-handoff-hook.
+- **Phase 2**: `create_recommended_swarm(num_agents=512)` production factory.
+- **Phase 3**: Live `dashboard_graph`, `obs_metrics_long_horizon_graph`, `meta_skill_evolver`, `simulation_harness_graph`.
+- **Phase 4-6**: Advanced multi-scale planning (planner_graph + mcp_graph), constitutional alignment, provenance-causal tracing, automated reporting (docx/pdf/pptx), full CI/CD + property testing.
+
+**All changes are pushed immediately** with conventional commits containing posture, provenance SHA256, and skill alignment notes. High-stakes changes require explicit human confirmation.
+
+**Current version target**: 3.2.1-dev (see `pyproject.toml`).
+
+---
+
+## License
+
+MIT — see LICENSE file.
