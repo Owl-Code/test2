@@ -1,80 +1,112 @@
  """
 textual_dashboard.py
-Minimal Textual Dashboard for HybridControlSwarmGraph (Phase 3 starter)
+Minimal Textual Dashboard for HybridControlSwarmGraph and compatible systems (Phase 3 starter)
 
 Provides simple, human-readable health and metrics rendering.
-Designed to be lightweight and usable immediately while the full
-dashboard_graph (matplotlib + rich visuals) is developed in Phase 3.
+Designed to work with both:
+- HybridControlSwarmGraph instances (from src/base_graph)
+- Plain dictionaries (e.g. from to_observability_dict() or graph_swarm_harness/)
 
-Usage:
-    from base_graph import create_recommended_swarm
-    from base_graph.textual_dashboard import render_textual_dashboard
-
-    swarm = create_recommended_swarm(num_agents=64)
-    for _ in range(3):
-        swarm.hybrid_step()
-    print(render_textual_dashboard(swarm))
+This makes it easier to integrate with external systems like graph_swarm_harness/harness/dashboard.py.
 
 Posture: HYBRID | ADAPTIVE | trophallaxis_primed | v3.2.1+
 """
 
 from __future__ import annotations
 
-from typing import Any, Dict
+from typing import Any, Dict, Union
+
+try:
+    from .factory import HybridControlSwarmGraph
+except ImportError:
+    HybridControlSwarmGraph = None  # Allow standalone use
 
 
-from .factory import HybridControlSwarmGraph
+def _extract_data(source: Union[Dict[str, Any], "HybridControlSwarmGraph"]) -> Dict[str, Any]:
+    """Normalize input to a standard dict."""
+    if isinstance(source, dict):
+        return source
+    if HybridControlSwarmGraph is not None and isinstance(source, HybridControlSwarmGraph):
+        return source.to_observability_dict()
+    raise TypeError("Input must be a dict or HybridControlSwarmGraph instance")
 
 
-def render_textual_dashboard(swarm: HybridControlSwarmGraph, width: int = 72) -> str:
+def render_textual_dashboard(
+    source: Union[Dict[str, Any], "HybridControlSwarmGraph"],
+    width: int = 72
+) -> str:
     """
-    Render a clean textual dashboard for a HybridControlSwarmGraph.
+    Render a clean textual dashboard.
+
+    Accepts either:
+    - A HybridControlSwarmGraph instance
+    - A dictionary (e.g. from to_observability_dict() or external systems)
     """
-    health = swarm.get_health()
-    metrics = swarm.get_metrics()
+    data = _extract_data(source)
 
     lines = []
     lines.append("=" * width)
-    lines.append(f"  {swarm.name}  |  Textual Dashboard (v3.2.1-dev)")
+    lines.append(f"  {data.get('swarm_name', data.get('name', 'Swarm'))}  |  Textual Dashboard")
     lines.append("=" * width)
 
     # Core status
-    lines.append(f"Mode: {health['control_mode']:12}   Emergence: {health['emergence_level']:.3f}")
-    lines.append(f"Nodes: {health['node_count']:5}        Edges: {health['edge_count']:5}")
-    lines.append(f"Skills: {health['skill_count']:4}        Last Checkpoint: {health.get('last_checkpoint', 'N/A')}")
+    emergence = data.get("emergence_level", data.get("emergence", 0.0))
+    nodes = data.get("node_count", 0)
+    edges = data.get("edge_count", 0)
+    mode = data.get("control_mode", "HYBRID")
 
-    # Posture block
-    posture = health.get("posture", {})
-    lines.append("-" * width)
-    lines.append("Posture:")
-    for k, v in posture.items():
-        lines.append(f"  {k:22}: {v}")
+    lines.append(f"Mode: {mode:12}   Emergence: {emergence:.3f}")
+    lines.append(f"Nodes: {nodes:5}        Edges: {edges:5}")
 
-    # Metrics / trends
-    m = metrics.get("metrics", {})
-    if m:
+    last_cp = data.get("last_checkpoint")
+    if last_cp:
+        lines.append(f"Last Checkpoint: {last_cp}")
+
+    # Posture
+    posture = data.get("posture", {})
+    if posture:
         lines.append("-" * width)
-        lines.append("Metrics:")
-        for k, v in m.items():
+        lines.append("Posture:")
+        for k, v in posture.items():
             lines.append(f"  {k:22}: {v}")
 
+    # Metrics
+    metrics = data.get("metrics", {})
+    if metrics:
+        lines.append("-" * width)
+        lines.append("Metrics:")
+        for k, v in metrics.items():
+            lines.append(f"  {k:22}: {v}")
+
+    # Sample nodes (if available)
+    sample = data.get("active_nodes_sample", [])
+    if sample:
+        lines.append("-" * width)
+        lines.append("Sample Nodes:")
+        for node in sample[:3]:
+            lines.append(f"  {node.get('id', '?'):12} | {node.get('role', 'generalist'):10} | health={node.get('health', 0):.2f}")
+
     lines.append("=" * width)
-    lines.append("  HYBRID | ADAPTIVE | trophallaxis_primed | fs-graph + expert routing active")
+    lines.append("  HYBRID | ADAPTIVE | trophallaxis_primed | Graph Swarm Harness")
     lines.append("=" * width)
 
     return "\n".join(lines)
 
 
-def print_dashboard(swarm: HybridControlSwarmGraph) -> None:
-    """Convenience wrapper that prints the dashboard directly."""
-    print(render_textual_dashboard(swarm))
+def print_dashboard(source: Union[Dict[str, Any], "HybridControlSwarmGraph"]) -> None:
+    """Print dashboard directly."""
+    print(render_textual_dashboard(source))
 
 
 if __name__ == "__main__":
     from .factory import create_recommended_swarm
 
-    swarm = create_recommended_swarm(num_agents=48, name="dashboard-test-swarm")
-    for _ in range(4):
-        swarm.hybrid_step({"task_complexity": 0.8})
+    swarm = create_recommended_swarm(num_agents=32, name="integration-test")
+    for _ in range(3):
+        swarm.hybrid_step()
 
+    print("Using HybridControlSwarmGraph instance:")
     print_dashboard(swarm)
+
+    print("\nUsing to_observability_dict():")
+    print_dashboard(swarm.to_observability_dict())
