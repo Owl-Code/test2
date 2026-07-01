@@ -5,7 +5,7 @@ Demonstration of the Phase 2 Production Factory (create_recommended_swarm)
 Shows the recommended bootstrap in action:
 - Creating a swarm with create_recommended_swarm(num_agents=64)
 - Running hybrid steps with expert routing and auto-checkpointing
-- Inspecting posture, nodes, and checkpoints
+- Inspecting posture, nodes, checkpoints, and health/metrics
 
 Run with:
     python examples/phase2_factory_demo.py
@@ -24,7 +24,7 @@ from base_graph import (
 
 def main():
     print("=" * 72)
-    print("base_graph Phase 2 Factory Demo — create_recommended_swarm")
+    print("base_graph Phase 2 Factory Demo — create_recommended_swarm + Observability")
     print("Posture: HYBRID | ADAPTIVE | trophallaxis_primed | v3.2.1-dev")
     print("=" * 72)
 
@@ -44,11 +44,6 @@ def main():
     print(f"    Bootstrap checkpoint: {swarm._checkpoint_sha[:16]}...")
     print(f"    Initial emergence: {swarm.emergence_level:.3f}")
 
-    posture: SwarmPosture = swarm.get_posture()
-    print(f"    Posture mode: {posture.mode}")
-    print(f"    Emergence target: {posture.emergence_target}")
-    print(f"    Expert routing active: {posture.expert_routing_active}")
-
     # 2. Run several hybrid steps
     print("\n[2] Running hybrid steps (with auto expert routing + checkpointing)")
     for i in range(5):
@@ -57,24 +52,35 @@ def main():
               f"experts={len(result['experts_activated'])}, "
               f"active_nodes={result['active_nodes']}")
 
-    final_posture = swarm.get_posture()
-    print(f"\n    Final emergence: {final_posture.emergence_target:.3f}")
-    print(f"    Final mode: {final_posture.mode}")
+    # 3. Show new observability methods (Phase 2 enhancement)
+    print("\n[3] Observability: get_health() and get_metrics()")
+    health = swarm.get_health()
+    print(f"    Health snapshot:")
+    for k, v in health.items():
+        if isinstance(v, dict):
+            print(f"      {k}:")
+            for sk, sv in v.items():
+                print(f"        {sk}: {sv}")
+        else:
+            print(f"      {k}: {v}")
 
-    # 3. Manual checkpoint
-    print("\n[3] Manual checkpoint")
+    metrics = swarm.get_metrics()
+    print(f"    Metrics trend: {metrics.get('metrics', {})}")
+
+    # 4. Manual checkpoint
+    print("\n[4] Manual checkpoint")
     manual_sha = swarm.checkpoint(name="phase2_demo_manual")
     print(f"    Manual checkpoint SHA: {manual_sha[:16]}...")
 
-    # 4. Show that we can still use Phase 1 capabilities directly
-    print("\n[4] Direct access to Phase 1 modules still works")
+    # 5. Direct access to Phase 1 capabilities still works
+    print("\n[5] Direct access to Phase 1 modules still works")
     from base_graph import list_available_skills, SkillCategory
     reasoning = list_available_skills(category=SkillCategory.ADVANCED_REASONING)
     print(f"    Advanced Reasoning skills available: {len(reasoning)}")
 
     print("\n" + "=" * 72)
     print("Phase 2 Factory Demo Complete — create_recommended_swarm is fully operational.")
-    print("The swarm now has nodes, edges, expert routing, auto-checkpointing, and posture.")
+    print("The swarm now has nodes, edges, expert routing, auto-checkpointing, health/metrics, and posture.")
     print("=" * 72)
 
 
