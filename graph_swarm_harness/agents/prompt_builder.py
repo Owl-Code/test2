@@ -201,7 +201,12 @@ def build_agent_prompt(context: Dict[str, Any]) -> List[Dict[str, str]]:
     # Format neighbors
     neighbors_lines = []
     for n in context["neighbors"]:
-        neighbors_lines.append(f"  - Neighbor {n['id']} ({n['role']}): energy={n['energy']:.1f}, emergence={n['emergence_contribution']:.2f}")
+        status_info = f"status={n['status']}"
+        if n['is_active_this_tick']:
+            status_info += " (active this tick)"
+        if n['last_action_type'] and n['last_action_type'] != 'none':
+            status_info += f", last_action={n['last_action_type']}"
+        neighbors_lines.append(f"  - Neighbor {n['id']} ({n['role']}): energy={n['energy']:.1f}, emergence={n['emergence_contribution']:.2f}, {status_info}")
     neighbors_desc = "\n".join(neighbors_lines) if neighbors_lines else "  No active connections."
     
     # Format inbox

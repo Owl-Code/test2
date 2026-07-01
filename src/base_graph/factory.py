@@ -1,4 +1,4 @@
- """
+"""
 factory.py
 Production Factory for Recommended Hybrid Control Swarm Harnesses
 

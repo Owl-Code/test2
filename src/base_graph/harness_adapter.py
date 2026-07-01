@@ -1,4 +1,4 @@
- """
+"""
 harness_adapter.py
 Utilities for integrating HybridControlSwarmGraph with graph_swarm_harness/
 

@@ -1,0 +1,32 @@
+{
+  "metadata": {
+    "control_mode": "HYBRID",
+    "edge_count": 0,
+    "emergence_level": 0.0,
+    "name": "phase2-demo-swarm_bootstrap",
+    "node_count": 0,
+    "posture": "HYBRID | ADAPTIVE | trophallaxis_primed | v3.2.1+",
+    "sha256": "09ebb76239a16f88acc5a47bd3eb41f4bd0f639b45a58ec93154eb452a60a819",
+    "swarm_name": null,
+    "timestamp": 1782926383.2742555
+  },
+  "provenance_note": "fs-graph checkpoint | Hybrid Control Swarm Harness v3.2.1+",
+  "state": {
+    "bootstrap_complete": true,
+    "initial_node_count": 8,
+    "name": "phase2-demo-swarm",
+    "num_agents_target": 64,
+    "posture": {
+      "adaptive": true,
+      "emergence_target": 0.92,
+      "expert_routing_active": true,
+      "fs_graph_active": true,
+      "homeostasis": "high",
+      "mode": "HYBRID",
+      "trophallaxis_primed": true,
+      "value_alignment_score": 0.92,
+      "version": "3.2.1-dev"
+    },
+    "skill_count": 41
+  }
+}

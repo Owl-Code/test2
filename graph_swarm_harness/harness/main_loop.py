@@ -120,6 +120,7 @@ class SwarmHarnessOrchestrator:
                     if act.action_type == "SEARCH_RESOURCE":
                         # Simulate simple local resource foraging to boost energy
                         node.resources["energy"] = min(100.0, node.resources["energy"] + 15.0)
+                        node.local_memory["last_action"] = {"action_type": "SEARCH_RESOURCE", "parameters": {}}
                         return Decision(
                             node_id=agent_id,
                             selected_action=act,
@@ -137,6 +138,7 @@ class SwarmHarnessOrchestrator:
                     
                     for act in action_space:
                         if act.action_type == "CONVERGE_OPINION":
+                            node.local_memory["last_action"] = {"action_type": "CONVERGE_OPINION", "parameters": {}}
                             return Decision(
                                 node_id=agent_id,
                                 selected_action=act,
@@ -145,6 +147,7 @@ class SwarmHarnessOrchestrator:
                             )
                             
             # Default idle behavior to save local model execution tokens
+            node.local_memory["last_action"] = {"action_type": "idle", "parameters": {}}
             return Decision(
                 node_id=agent_id,
                 selected_action=Action(action_type="idle", parameters={}),
@@ -154,9 +157,15 @@ class SwarmHarnessOrchestrator:
 
         # Check precomputed decisions from parallel tick
         if hasattr(self, "precomputed_decisions") and agent_id in self.precomputed_decisions:
-            return self.precomputed_decisions[agent_id]
+            decision = self.precomputed_decisions[agent_id]
+            node.local_memory["last_action"] = {
+                "action_type": decision.selected_action.action_type,
+                "parameters": decision.selected_action.parameters
+            }
+            return decision
             
         # Default idle behavior to save local model execution tokens
+        node.local_memory["last_action"] = {"action_type": "idle", "parameters": {}}
         return Decision(
             node_id=agent_id,
             selected_action=Action(action_type="idle", parameters={}),
@@ -205,7 +214,13 @@ class SwarmHarnessOrchestrator:
             
         # Select active nodes for this step
         self.select_active_agents()
+        self.swarm.active_agents_this_tick = self.active_agents_this_tick
         
+        # Update active/inactive status in node states so other nodes can inspect
+        for nid, node in self.swarm.graph.nodes.items():
+            if isinstance(node, EmergenceNode):
+                node.state["is_active"] = nid in self.active_agents_this_tick
+            
         # Record pre-step agent state logs for dashboard
         log_parts = []
         for aid in self.active_agents_this_tick:

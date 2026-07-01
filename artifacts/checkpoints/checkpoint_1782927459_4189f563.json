@@ -1,0 +1,1173 @@
+{
+  "timestamp": 1782927459.5370798,
+  "checkpoint_id": "4189f563-127a-4db3-80d6-a11ac443c8ef",
+  "state_hash": "2931db30c845639a04df01c8502084b73e8341022d2cc38215d896d61c83f4df",
+  "nodes_state": [
+    {
+      "id": "agent_7f970b05",
+      "resources": {
+        "energy": 99.0
+      },
+      "opinions": {
+        "main": 0.0
+      },
+      "goals": [],
+      "control_mode": "EMERGENCE",
+      "local_memory": {
+        "last_thought": "I am currently in a coordinator role with active goals of coordinating system design analysis. I have neighbors who can perform tasks such as coding or reviewing. My primary goal is to delegate this task effectively.",
+        "last_decision_reason": "I will delegate the task of writing the system analysis script to my coder neighbor, ensuring we can move forward with our goal of analyzing system design efficiently.",
+        "last_confidence": 0.95,
+        "last_action_result": "Error: Target agent agent_coder_01 not found.\n[ENERGY] Harvested +15.0 energy (Agent energy: 100.0) from goal 'Coordinate and assign system design analysis.' (Goal energy remaining: 30.0). Task crumb pheromone deposited.",
+        "stigmergy_deposits": [],
+        "last_action": {
+          "action_type": "create_handoff_edge",
+          "target_id": null,
+          "parameters": {
+            "target_agent_id": "agent_coder_01",
+            "message": "Please write a python script called system_analyzer.py that parses workspace contents."
+          }
+        }
+      },
+      "state": {
+        "role": "coordinator",
+        "active_skills": [
+          "graph_query",
+          "graph_update",
+          "handoff_create",
+          "spawn_sub_agent",
+          "set_control_mode"
+        ],
+        "available_tools": [
+          "query_swarm_emergence",
+          "create_handoff_edge",
+          "reply_to_operator",
+          "create_new_role"
+        ],
+        "beliefs": {
+          "persona": "You are the central planner. Decompose complex goals, delegate tasks to worker agents, and verify completion."
+        },
+        "short_term_memory": [],
+        "inbox": []
+      },
+      "metadata": {}
+    },
+    {
+      "id": "agent_71f1c94b",
+      "resources": {
+        "energy": 88.5
+      },
+      "opinions": {
+        "main": 0.0
+      },
+      "goals": [],
+      "control_mode": "EMERGENCE",
+      "local_memory": {
+        "last_thought": "Resting/Conserving state",
+        "last_decision_reason": "Agent inactive this tick; rule-based conserving state.",
+        "last_confidence": 0.95,
+        "last_action_result": "Exit Code: 0\nStdout:\nAnalysis result\n\n\n[ENERGY] Harvested +15.0 energy (Agent energy: 92.5) from goal 'Coordinate and assign system design analysis.' (Goal energy remaining: 90.0). Task crumb pheromone deposited.",
+        "stigmergy_deposits": [],
+        "last_action": {
+          "action_type": "idle",
+          "target_id": null,
+          "parameters": {}
+        }
+      },
+      "state": {
+        "role": "coder",
+        "active_skills": [
+          "code_execution",
+          "file_io"
+        ],
+        "available_tools": [
+          "write_file",
+          "execute_python_snippet",
+          "create_handoff_edge",
+          "reply_to_operator"
+        ],
+        "beliefs": {
+          "persona": "You are a code-focused specialist. Write correct, clean, optimized, and thoroughly tested python scripts."
+        },
+        "inbox": [],
+        "short_term_memory": []
+      },
+      "metadata": {}
+    },
+    {
+      "id": "agent_693627f2",
+      "resources": {
+        "energy": 98.0
+      },
+      "opinions": {
+        "main": 0.0
+      },
+      "goals": [],
+      "control_mode": "EMERGENCE",
+      "local_memory": {
+        "last_thought": "Resting/Conserving state",
+        "last_decision_reason": "Agent inactive this tick; rule-based conserving state.",
+        "last_action": {
+          "action_type": "idle",
+          "target_id": null,
+          "parameters": {}
+        },
+        "stigmergy_deposits": [],
+        "last_confidence": 0.95,
+        "last_action_result": "# Example of a simple function for analyzing system design\n\n[ENERGY] Harvested +15.0 energy (Agent energy: 100.0) from goal 'Coordinate and assign system design analysis.' (Goal energy remaining: 50.0). Task crumb pheromone deposited."
+      },
+      "state": {
+        "role": "reviewer",
+        "active_skills": [
+          "file_io",
+          "self_reflect_and_emergence_update"
+        ],
+        "available_tools": [
+          "read_file",
+          "create_handoff_edge",
+          "reply_to_operator"
+        ],
+        "beliefs": {
+          "persona": "You are a reviewer. Audit local scripts for edge cases, performance bottlenecks, clean structure, and security risks."
+        },
+        "inbox": [],
+        "short_term_memory": []
+      },
+      "metadata": {}
+    },
+    {
+      "id": "agent_bb6907f0",
+      "resources": {
+        "energy": 88.5
+      },
+      "opinions": {
+        "main": 0.0
+      },
+      "goals": [],
+      "control_mode": "EMERGENCE",
+      "local_memory": {
+        "last_thought": "I am currently in an active state with a goal of coordinating and assigning system design analysis. My energy level is 78.0/100.0 and I have no neighbors or connections to coordinate with directly, but my current control mode is set to EMERGENCE which aligns well with the need for coordination and analysis. I will query the swarm's emergence metrics to ensure we are in a suitable state for active work.",
+        "last_decision_reason": "Querying the swarm's emergence metrics will help ensure we are in a suitable state for active work and coordination, aligning with our goal of coordinating system design analysis.",
+        "last_action": {
+          "action_type": "query_swarm_emergence",
+          "target_id": null,
+          "parameters": {}
+        },
+        "stigmergy_deposits": [],
+        "last_confidence": 0.95,
+        "last_action_result": "Global Swarm Emergence Level: 0.9045\nActive Agents:\n  - agent_7f970b05 (coordinator): energy=100.0, emergence_contribution=0.40\n  - agent_71f1c94b (coder): energy=89.5, emergence_contribution=0.36\n  - agent_693627f2 (reviewer): energy=99.0, emergence_contribution=0.40\n  - agent_bb6907f0 (system_designer): energy=74.5, emergence_contribution=0.30\n  - agent_ec4e9268 (system_designer): energy=78.0, emergence_contribution=0.31\n  - agent_8ea3ce03 (system_designer): energy=79.0, emergence_contribution=0.32\n[ENERGY] Harvested +15.0 energy (Agent energy: 89.5) from goal 'Coordinate and assign system design analysis.' (Goal energy remaining: 20.0). Task crumb pheromone deposited."
+      },
+      "state": {
+        "role": "system_designer",
+        "active_skills": [
+          "graph_query",
+          "set_control_mode"
+        ],
+        "available_tools": [
+          "query_swarm_emergence",
+          "reply_to_operator"
+        ],
+        "beliefs": {
+          "persona": "You are a system designer. Focus on architectural modularity, layout structure, design patterns, and systemic cohesion."
+        },
+        "inbox": [],
+        "short_term_memory": []
+      },
+      "metadata": {}
+    },
+    {
+      "id": "agent_ec4e9268",
+      "resources": {
+        "energy": 77.0
+      },
+      "opinions": {
+        "main": 0.0
+      },
+      "goals": [],
+      "control_mode": "EMERGENCE",
+      "local_memory": {
+        "last_thought": "Resting/Conserving state",
+        "last_decision_reason": "Agent inactive this tick; rule-based conserving state.",
+        "last_action": {
+          "action_type": "idle",
+          "target_id": null,
+          "parameters": {}
+        },
+        "stigmergy_deposits": []
+      },
+      "state": {
+        "role": "system_designer",
+        "active_skills": [
+          "graph_query",
+          "set_control_mode"
+        ],
+        "available_tools": [
+          "query_swarm_emergence",
+          "reply_to_operator"
+        ],
+        "beliefs": {
+          "persona": "You are a system designer. Focus on architectural modularity, layout structure, design patterns, and systemic cohesion."
+        },
+        "inbox": []
+      },
+      "metadata": {}
+    },
+    {
+      "id": "agent_8ea3ce03",
+      "resources": {
+        "energy": 78.0
+      },
+      "opinions": {
+        "main": 0.0
+      },
+      "goals": [],
+      "control_mode": "EMERGENCE",
+      "local_memory": {
+        "last_thought": "Resting/Conserving state",
+        "last_decision_reason": "No critical local drivers; idling.",
+        "last_action": {
+          "action_type": "IDLE",
+          "target_id": null,
+          "parameters": {}
+        },
+        "stigmergy_deposits": []
+      },
+      "state": {
+        "role": "system_designer",
+        "active_skills": [
+          "graph_query",
+          "set_control_mode"
+        ],
+        "available_tools": [
+          "query_swarm_emergence",
+          "reply_to_operator"
+        ],
+        "beliefs": {
+          "persona": "You are a system designer. Focus on architectural modularity, layout structure, design patterns, and systemic cohesion."
+        }
+      },
+      "metadata": {}
+    }
+  ],
+  "edges_state": [
+    {
+      "source_id": "agent_7f970b05",
+      "target_id": "agent_71f1c94b",
+      "weight": 1.5,
+      "edge_type": "COMMAND",
+      "strength": 1.0,
+      "last_updated": 1782927124.403662,
+      "usage_count": 0,
+      "metadata": {},
+      "class_name": "AdaptiveEdge"
+    },
+    {
+      "source_id": "agent_71f1c94b",
+      "target_id": "agent_7f970b05",
+      "weight": 0.9036878906249999,
+      "edge_type": "COMMUNICATION",
+      "strength": 1.0,
+      "last_updated": 1782927124.4036682,
+      "usage_count": 0,
+      "metadata": {},
+      "class_name": "EmergenceEdge"
+    },
+    {
+      "source_id": "agent_7f970b05",
+      "target_id": "agent_693627f2",
+      "weight": 1.5,
+      "edge_type": "COMMAND",
+      "strength": 1.0,
+      "last_updated": 1782927124.4037366,
+      "usage_count": 0,
+      "metadata": {},
+      "class_name": "AdaptiveEdge"
+    },
+    {
+      "source_id": "agent_693627f2",
+      "target_id": "agent_7f970b05",
+      "weight": 0.9036878906249999,
+      "edge_type": "COMMUNICATION",
+      "strength": 1.0,
+      "last_updated": 1782927124.40374,
+      "usage_count": 0,
+      "metadata": {},
+      "class_name": "EmergenceEdge"
+    },
+    {
+      "source_id": "agent_7f970b05",
+      "target_id": "agent_bb6907f0",
+      "weight": 1.5,
+      "edge_type": "COMMAND",
+      "strength": 1.0,
+      "last_updated": 1782927258.8802145,
+      "usage_count": 0,
+      "metadata": {},
+      "class_name": "AdaptiveEdge"
+    },
+    {
+      "source_id": "agent_bb6907f0",
+      "target_id": "agent_7f970b05",
+      "weight": 0.9036878906249999,
+      "edge_type": "COMMUNICATION",
+      "strength": 1.0,
+      "last_updated": 1782927258.8802211,
+      "usage_count": 0,
+      "metadata": {},
+      "class_name": "EmergenceEdge"
+    },
+    {
+      "source_id": "agent_7f970b05",
+      "target_id": "agent_ec4e9268",
+      "weight": 1.5,
+      "edge_type": "COMMAND",
+      "strength": 1.0,
+      "last_updated": 1782927349.576354,
+      "usage_count": 0,
+      "metadata": {},
+      "class_name": "AdaptiveEdge"
+    },
+    {
+      "source_id": "agent_ec4e9268",
+      "target_id": "agent_7f970b05",
+      "weight": 0.9268593749999999,
+      "edge_type": "COMMUNICATION",
+      "strength": 1.0,
+      "last_updated": 1782927349.5763612,
+      "usage_count": 0,
+      "metadata": {},
+      "class_name": "EmergenceEdge"
+    },
+    {
+      "source_id": "agent_7f970b05",
+      "target_id": "agent_8ea3ce03",
+      "weight": 1.5,
+      "edge_type": "COMMAND",
+      "strength": 1.0,
+      "last_updated": 1782927380.576155,
+      "usage_count": 0,
+      "metadata": {},
+      "class_name": "AdaptiveEdge"
+    },
+    {
+      "source_id": "agent_8ea3ce03",
+      "target_id": "agent_7f970b05",
+      "weight": 0.9506249999999999,
+      "edge_type": "COMMUNICATION",
+      "strength": 1.0,
+      "last_updated": 1782927380.5761619,
+      "usage_count": 0,
+      "metadata": {},
+      "class_name": "EmergenceEdge"
+    }
+  ],
+  "provenance_chain": [
+    {
+      "index": 0,
+      "timestamp": 1782927124.4034379,
+      "delta": {
+        "timestamp": 1782927124.4034379,
+        "actor": "swarm_orchestrator",
+        "operation": "spawn_dynamic_agent",
+        "target": "agent_7f970b05",
+        "before": null,
+        "after": {
+          "id": "agent_7f970b05",
+          "role": "coordinator",
+          "skills": [
+            "graph_query",
+            "graph_update",
+            "handoff_create",
+            "spawn_sub_agent",
+            "set_control_mode"
+          ],
+          "tools": [
+            "query_swarm_emergence",
+            "create_handoff_edge",
+            "reply_to_operator",
+            "create_new_role"
+          ],
+          "parent_id": null
+        },
+        "meta": {
+          "emergence_boost": 0.1
+        }
+      },
+      "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "current_hash": "89ba25a0751f03d6ef640649678c02b69cb9413f384e0d3386d104bea44f7656"
+    },
+    {
+      "index": 1,
+      "timestamp": 1782927124.4036715,
+      "delta": {
+        "timestamp": 1782927124.4036715,
+        "actor": "swarm_orchestrator",
+        "operation": "spawn_dynamic_agent",
+        "target": "agent_71f1c94b",
+        "before": null,
+        "after": {
+          "id": "agent_71f1c94b",
+          "role": "coder",
+          "skills": [
+            "code_execution",
+            "file_io"
+          ],
+          "tools": [
+            "write_file",
+            "execute_python_snippet",
+            "create_handoff_edge",
+            "reply_to_operator"
+          ],
+          "parent_id": "agent_7f970b05"
+        },
+        "meta": {
+          "emergence_boost": 0.1
+        }
+      },
+      "previous_hash": "89ba25a0751f03d6ef640649678c02b69cb9413f384e0d3386d104bea44f7656",
+      "current_hash": "ab743cbf3d01146f5ecb325c1176be61c9e0e97d57c1b5238de5a6a4c5cbd5fa"
+    },
+    {
+      "index": 2,
+      "timestamp": 1782927124.4037466,
+      "delta": {
+        "timestamp": 1782927124.4037466,
+        "actor": "swarm_orchestrator",
+        "operation": "spawn_dynamic_agent",
+        "target": "agent_693627f2",
+        "before": null,
+        "after": {
+          "id": "agent_693627f2",
+          "role": "reviewer",
+          "skills": [
+            "file_io",
+            "self_reflect_and_emergence_update"
+          ],
+          "tools": [
+            "read_file",
+            "create_handoff_edge",
+            "reply_to_operator"
+          ],
+          "parent_id": "agent_7f970b05"
+        },
+        "meta": {
+          "emergence_boost": 0.1
+        }
+      },
+      "previous_hash": "ab743cbf3d01146f5ecb325c1176be61c9e0e97d57c1b5238de5a6a4c5cbd5fa",
+      "current_hash": "b2d507f86d5cf2554faa1625e3d67cfa1a63f6fc08cfa2032fc9e5b3afc52e49"
+    },
+    {
+      "index": 3,
+      "timestamp": 1782927201.8113017,
+      "delta": {
+        "timestamp": 1782927201.8113017,
+        "actor": "agent_71f1c94b",
+        "operation": "execute_tool",
+        "target": "execute_python_snippet",
+        "before": null,
+        "after": {
+          "args": {
+            "code": "def analyze_system_design(system_details):\n    # Placeholder function implementation\n    return 'Analysis result'\n\n# Example usage\nsystem_details = {'details': 'example system details'}\nanalysis_result = analyze_system_design(system_details)\nprint(analysis_result)"
+          },
+          "result": "Exit Code: 0\nStdout:\nAnalysis result\n\n\n[ENERGY] Harvested +15.0 energy (Agent energy: 92.5) from goal 'Coordinate and assign system design analysis.' (Goal energy remaining: 90.0). Task crumb pheromone deposited."
+        },
+        "meta": {
+          "confidence": 0.95
+        }
+      },
+      "previous_hash": "b2d507f86d5cf2554faa1625e3d67cfa1a63f6fc08cfa2032fc9e5b3afc52e49",
+      "current_hash": "701010247fecbccf2fafd7466c7a15a82352fbdafe9e79ba83bb863b1221ede8"
+    },
+    {
+      "index": 4,
+      "timestamp": 1782927258.8802269,
+      "delta": {
+        "timestamp": 1782927258.8802269,
+        "actor": "swarm_orchestrator",
+        "operation": "spawn_dynamic_agent",
+        "target": "agent_bb6907f0",
+        "before": null,
+        "after": {
+          "id": "agent_bb6907f0",
+          "role": "system_designer",
+          "skills": [
+            "graph_query",
+            "set_control_mode"
+          ],
+          "tools": [
+            "query_swarm_emergence",
+            "reply_to_operator"
+          ],
+          "parent_id": "agent_7f970b05"
+        },
+        "meta": {
+          "emergence_boost": 0.1
+        }
+      },
+      "previous_hash": "701010247fecbccf2fafd7466c7a15a82352fbdafe9e79ba83bb863b1221ede8",
+      "current_hash": "05986486162813092009ca94326eb0d743ceffdb5a713442b9c3354949b90f04"
+    },
+    {
+      "index": 5,
+      "timestamp": 1782927258.8806038,
+      "delta": {
+        "timestamp": 1782927258.8806038,
+        "actor": "agent_7f970b05",
+        "operation": "execute_skill",
+        "target": "spawn_sub_agent",
+        "before": null,
+        "after": {
+          "args": {
+            "role": "system_designer"
+          },
+          "result": "Successfully spawned sub-agent agent_bb6907f0 with role 'system_designer'\n[ENERGY] Harvested +15.0 energy (Agent energy: 92.5) from goal 'Coordinate and assign system design analysis.' (Goal energy remaining: 80.0). Task crumb pheromone deposited."
+        },
+        "meta": {
+          "confidence": 0.95
+        }
+      },
+      "previous_hash": "05986486162813092009ca94326eb0d743ceffdb5a713442b9c3354949b90f04",
+      "current_hash": "7cf1496dffcdb91d1501fec00ebe79a65d291f5396d9bdb381c782d42fc3c578"
+    },
+    {
+      "index": 6,
+      "timestamp": 1782927258.8824534,
+      "delta": {
+        "timestamp": 1782927258.8824534,
+        "actor": "swarm_engine",
+        "operation": "hybrid_step",
+        "target": "1",
+        "before": {
+          "agent_7f970b05": {
+            "resources": {
+              "energy": 92.5
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_71f1c94b": {
+            "resources": {
+              "energy": 92.5
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_693627f2": {
+            "resources": {
+              "energy": 80.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_bb6907f0": {
+            "resources": {
+              "energy": 80.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          }
+        },
+        "after": {
+          "agent_7f970b05": {
+            "resources": {
+              "energy": 91.5
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_71f1c94b": {
+            "resources": {
+              "energy": 91.5
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_693627f2": {
+            "resources": {
+              "energy": 79.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_bb6907f0": {
+            "resources": {
+              "energy": 79.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          }
+        },
+        "meta": {
+          "transfers_executed": 0,
+          "starving_count": 0,
+          "active_modes": {
+            "HIERARCHICAL": 0,
+            "DECENTRALIZED": 0,
+            "STIGMERGIC": 0,
+            "EMERGENCE": 4
+          }
+        }
+      },
+      "previous_hash": "7cf1496dffcdb91d1501fec00ebe79a65d291f5396d9bdb381c782d42fc3c578",
+      "current_hash": "777cd02e873c61809df62ba9f1fa83ef3b70af34c5e5950374806b3e4766b2d6"
+    },
+    {
+      "index": 7,
+      "timestamp": 1782927306.0610793,
+      "delta": {
+        "timestamp": 1782927306.0610793,
+        "actor": "agent_693627f2",
+        "operation": "execute_tool",
+        "target": "read_file",
+        "before": null,
+        "after": {
+          "args": {
+            "path": "system_design_analysis.py"
+          },
+          "result": "# Example of a simple function for analyzing system design\n\n[ENERGY] Harvested +15.0 energy (Agent energy: 91.5) from goal 'Coordinate and assign system design analysis.' (Goal energy remaining: 70.0). Task crumb pheromone deposited."
+        },
+        "meta": {
+          "confidence": 0.95
+        }
+      },
+      "previous_hash": "777cd02e873c61809df62ba9f1fa83ef3b70af34c5e5950374806b3e4766b2d6",
+      "current_hash": "6799773b7d7586b6fad13f3f3afc986bc7068fa9100479084741d18764fd3ad1"
+    },
+    {
+      "index": 8,
+      "timestamp": 1782927349.5763674,
+      "delta": {
+        "timestamp": 1782927349.5763674,
+        "actor": "swarm_orchestrator",
+        "operation": "spawn_dynamic_agent",
+        "target": "agent_ec4e9268",
+        "before": null,
+        "after": {
+          "id": "agent_ec4e9268",
+          "role": "system_designer",
+          "skills": [
+            "graph_query",
+            "set_control_mode"
+          ],
+          "tools": [
+            "query_swarm_emergence",
+            "reply_to_operator"
+          ],
+          "parent_id": "agent_7f970b05"
+        },
+        "meta": {
+          "emergence_boost": 0.1
+        }
+      },
+      "previous_hash": "6799773b7d7586b6fad13f3f3afc986bc7068fa9100479084741d18764fd3ad1",
+      "current_hash": "d17c5248809b6a39faeb5bd67bbf985ba4603fbd200bac13850e9d187e3246ee"
+    },
+    {
+      "index": 9,
+      "timestamp": 1782927349.5778465,
+      "delta": {
+        "timestamp": 1782927349.5778465,
+        "actor": "agent_7f970b05",
+        "operation": "execute_skill",
+        "target": "spawn_sub_agent",
+        "before": null,
+        "after": {
+          "args": {
+            "role": "system_designer"
+          },
+          "result": "Successfully spawned sub-agent agent_ec4e9268 with role 'system_designer'\n[ENERGY] Harvested +15.0 energy (Agent energy: 100.0) from goal 'Coordinate and assign system design analysis.' (Goal energy remaining: 60.0). Task crumb pheromone deposited."
+        },
+        "meta": {
+          "confidence": 0.95
+        }
+      },
+      "previous_hash": "d17c5248809b6a39faeb5bd67bbf985ba4603fbd200bac13850e9d187e3246ee",
+      "current_hash": "2e79f0eb0133c383be0d0566922150100e0a817d0e5f5fee3a8b4ec610119caa"
+    },
+    {
+      "index": 10,
+      "timestamp": 1782927349.5793693,
+      "delta": {
+        "timestamp": 1782927349.5793693,
+        "actor": "swarm_engine",
+        "operation": "hybrid_step",
+        "target": "2",
+        "before": {
+          "agent_7f970b05": {
+            "resources": {
+              "energy": 100.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_71f1c94b": {
+            "resources": {
+              "energy": 91.5
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_693627f2": {
+            "resources": {
+              "energy": 91.5
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_bb6907f0": {
+            "resources": {
+              "energy": 79.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_ec4e9268": {
+            "resources": {
+              "energy": 80.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          }
+        },
+        "after": {
+          "agent_7f970b05": {
+            "resources": {
+              "energy": 99.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_71f1c94b": {
+            "resources": {
+              "energy": 90.5
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_693627f2": {
+            "resources": {
+              "energy": 90.5
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_bb6907f0": {
+            "resources": {
+              "energy": 78.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_ec4e9268": {
+            "resources": {
+              "energy": 79.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          }
+        },
+        "meta": {
+          "transfers_executed": 0,
+          "starving_count": 0,
+          "active_modes": {
+            "HIERARCHICAL": 0,
+            "DECENTRALIZED": 0,
+            "STIGMERGIC": 0,
+            "EMERGENCE": 5
+          }
+        }
+      },
+      "previous_hash": "2e79f0eb0133c383be0d0566922150100e0a817d0e5f5fee3a8b4ec610119caa",
+      "current_hash": "51e3332146f8b48892b3d60b1fc3a92e7e5eb1e2238eb6aa9a7ffc6c5512946f"
+    },
+    {
+      "index": 11,
+      "timestamp": 1782927366.0168426,
+      "delta": {
+        "timestamp": 1782927366.0168426,
+        "actor": "agent_693627f2",
+        "operation": "execute_tool",
+        "target": "read_file",
+        "before": null,
+        "after": {
+          "args": {
+            "path": "system_design_analysis.py"
+          },
+          "result": "# Example of a simple function for analyzing system design\n\n[ENERGY] Harvested +15.0 energy (Agent energy: 100.0) from goal 'Coordinate and assign system design analysis.' (Goal energy remaining: 50.0). Task crumb pheromone deposited."
+        },
+        "meta": {
+          "confidence": 0.95
+        }
+      },
+      "previous_hash": "51e3332146f8b48892b3d60b1fc3a92e7e5eb1e2238eb6aa9a7ffc6c5512946f",
+      "current_hash": "255293af09f3e6435d43dcaeb6c8787021345302c80b9e88b72fbbd7492cc8e6"
+    },
+    {
+      "index": 12,
+      "timestamp": 1782927380.5761673,
+      "delta": {
+        "timestamp": 1782927380.5761673,
+        "actor": "swarm_orchestrator",
+        "operation": "spawn_dynamic_agent",
+        "target": "agent_8ea3ce03",
+        "before": null,
+        "after": {
+          "id": "agent_8ea3ce03",
+          "role": "system_designer",
+          "skills": [
+            "graph_query",
+            "set_control_mode"
+          ],
+          "tools": [
+            "query_swarm_emergence",
+            "reply_to_operator"
+          ],
+          "parent_id": "agent_7f970b05"
+        },
+        "meta": {
+          "emergence_boost": 0.1
+        }
+      },
+      "previous_hash": "255293af09f3e6435d43dcaeb6c8787021345302c80b9e88b72fbbd7492cc8e6",
+      "current_hash": "2f3e611f984b69d0150bf732e7dc3eafbbd985223b2c03bac1204c6e2694f99f"
+    },
+    {
+      "index": 13,
+      "timestamp": 1782927380.5765266,
+      "delta": {
+        "timestamp": 1782927380.5765266,
+        "actor": "agent_7f970b05",
+        "operation": "execute_skill",
+        "target": "spawn_sub_agent",
+        "before": null,
+        "after": {
+          "args": {
+            "role": "system_designer"
+          },
+          "result": "Successfully spawned sub-agent agent_8ea3ce03 with role 'system_designer'\n[ENERGY] Harvested +15.0 energy (Agent energy: 100.0) from goal 'Coordinate and assign system design analysis.' (Goal energy remaining: 40.0). Task crumb pheromone deposited."
+        },
+        "meta": {
+          "confidence": 0.95
+        }
+      },
+      "previous_hash": "2f3e611f984b69d0150bf732e7dc3eafbbd985223b2c03bac1204c6e2694f99f",
+      "current_hash": "60cbb187a2f793f40b7d00e167aec86041d338a8396b91c8162755cd3698494f"
+    },
+    {
+      "index": 14,
+      "timestamp": 1782927380.578332,
+      "delta": {
+        "timestamp": 1782927380.578332,
+        "actor": "swarm_engine",
+        "operation": "hybrid_step",
+        "target": "3",
+        "before": {
+          "agent_7f970b05": {
+            "resources": {
+              "energy": 100.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_71f1c94b": {
+            "resources": {
+              "energy": 90.5
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_693627f2": {
+            "resources": {
+              "energy": 100.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_bb6907f0": {
+            "resources": {
+              "energy": 78.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_ec4e9268": {
+            "resources": {
+              "energy": 79.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_8ea3ce03": {
+            "resources": {
+              "energy": 80.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          }
+        },
+        "after": {
+          "agent_7f970b05": {
+            "resources": {
+              "energy": 99.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_71f1c94b": {
+            "resources": {
+              "energy": 89.5
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_693627f2": {
+            "resources": {
+              "energy": 99.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_bb6907f0": {
+            "resources": {
+              "energy": 77.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_ec4e9268": {
+            "resources": {
+              "energy": 78.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_8ea3ce03": {
+            "resources": {
+              "energy": 79.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          }
+        },
+        "meta": {
+          "transfers_executed": 0,
+          "starving_count": 0,
+          "active_modes": {
+            "HIERARCHICAL": 0,
+            "DECENTRALIZED": 0,
+            "STIGMERGIC": 0,
+            "EMERGENCE": 6
+          }
+        }
+      },
+      "previous_hash": "60cbb187a2f793f40b7d00e167aec86041d338a8396b91c8162755cd3698494f",
+      "current_hash": "f7cf556342db8c131cf4fbf77b9b9432ab58597f6c1f849dbac5615637134d78"
+    },
+    {
+      "index": 15,
+      "timestamp": 1782927422.426549,
+      "delta": {
+        "timestamp": 1782927422.426549,
+        "actor": "agent_7f970b05",
+        "operation": "execute_tool",
+        "target": "create_handoff_edge",
+        "before": null,
+        "after": {
+          "args": {
+            "target_agent_id": "agent_coder_01",
+            "message": "Please write a python script called system_analyzer.py that parses workspace contents."
+          },
+          "result": "Error: Target agent agent_coder_01 not found.\n[ENERGY] Harvested +15.0 energy (Agent energy: 100.0) from goal 'Coordinate and assign system design analysis.' (Goal energy remaining: 30.0). Task crumb pheromone deposited."
+        },
+        "meta": {
+          "confidence": 0.95
+        }
+      },
+      "previous_hash": "f7cf556342db8c131cf4fbf77b9b9432ab58597f6c1f849dbac5615637134d78",
+      "current_hash": "f428ab72c54905b7708f6a7a23a433cfb8bf7d0e95154ecd005cea998ff4bd00"
+    },
+    {
+      "index": 16,
+      "timestamp": 1782927459.5344079,
+      "delta": {
+        "timestamp": 1782927459.5344079,
+        "actor": "agent_bb6907f0",
+        "operation": "execute_tool",
+        "target": "query_swarm_emergence",
+        "before": null,
+        "after": {
+          "args": {},
+          "result": "Global Swarm Emergence Level: 0.9045\nActive Agents:\n  - agent_7f970b05 (coordinator): energy=100.0, emergence_contribution=0.40\n  - agent_71f1c94b (coder): energy=89.5, emergence_contribution=0.36\n  - agent_693627f2 (reviewer): energy=99.0, emergence_contribution=0.40\n  - agent_bb6907f0 (system_designer): energy=74.5, emergence_contribution=0.30\n  - agent_ec4e9268 (system_designer): energy=78.0, emergence_contribution=0.31\n  - agent_8ea3ce03 (system_designer): energy=79.0, emergence_contribution=0.32\n[ENERGY] Harvested +15.0 energy (Agent energy: 89.5) from goal 'Coordinate and assign system design analysis.' (Goal energy remaining: 20.0). Task crumb pheromone deposited."
+        },
+        "meta": {
+          "confidence": 0.95
+        }
+      },
+      "previous_hash": "f428ab72c54905b7708f6a7a23a433cfb8bf7d0e95154ecd005cea998ff4bd00",
+      "current_hash": "ef56504fba831ed36d27ad86eb4d5c02b6a5eaef6059bfef819a64a687a8ddee"
+    },
+    {
+      "index": 17,
+      "timestamp": 1782927459.5361993,
+      "delta": {
+        "timestamp": 1782927459.5361993,
+        "actor": "swarm_engine",
+        "operation": "hybrid_step",
+        "target": "4",
+        "before": {
+          "agent_7f970b05": {
+            "resources": {
+              "energy": 100.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_71f1c94b": {
+            "resources": {
+              "energy": 89.5
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_693627f2": {
+            "resources": {
+              "energy": 99.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_bb6907f0": {
+            "resources": {
+              "energy": 89.5
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_ec4e9268": {
+            "resources": {
+              "energy": 78.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_8ea3ce03": {
+            "resources": {
+              "energy": 79.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          }
+        },
+        "after": {
+          "agent_7f970b05": {
+            "resources": {
+              "energy": 99.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_71f1c94b": {
+            "resources": {
+              "energy": 88.5
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_693627f2": {
+            "resources": {
+              "energy": 98.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_bb6907f0": {
+            "resources": {
+              "energy": 88.5
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_ec4e9268": {
+            "resources": {
+              "energy": 77.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          },
+          "agent_8ea3ce03": {
+            "resources": {
+              "energy": 78.0
+            },
+            "opinions": {
+              "main": 0.0
+            }
+          }
+        },
+        "meta": {
+          "transfers_executed": 0,
+          "starving_count": 0,
+          "active_modes": {
+            "HIERARCHICAL": 0,
+            "DECENTRALIZED": 0,
+            "STIGMERGIC": 0,
+            "EMERGENCE": 6
+          }
+        }
+      },
+      "previous_hash": "ef56504fba831ed36d27ad86eb4d5c02b6a5eaef6059bfef819a64a687a8ddee",
+      "current_hash": "b2b0cef46355e41d652a1104a407c47e1869326cd0ffb49aa539c2eb7de3bbfe"
+    }
+  ],
+  "metadata": {
+    "active_goals": [
+      "Coordinate and assign system design analysis."
+    ],
+    "goal_energy": {
+      "Coordinate and assign system design analysis.": 20.0
+    },
+    "chat_replies": [],
+    "intra_swarm_messages": [],
+    "swarm_name": "swarm-alpha"
+  }
+}

@@ -28,15 +28,32 @@ def assemble_agent_context(
     neighbors_list = []
     # get raw outgoing neighbor nodes from base graph
     raw_neighbors = swarm.graph.get_neighbors(agent.id)
+    active_agents = getattr(swarm, "active_agents_this_tick", [])
+    
     for n in raw_neighbors:
         n_agent = swarm.get_agent(str(n.id))
         if n_agent:
+            is_active = n_agent.id in active_agents
+            last_act = n_agent.last_action
+            last_action_type = last_act.get("action_type") if last_act else "none"
+            
+            # neighbor status: active, idle, or inactive
+            if last_action_type.lower() == "idle":
+                status = "idle"
+            elif is_active:
+                status = "active"
+            else:
+                status = "inactive"
+                
             neighbors_list.append({
                 "id": n_agent.id,
                 "role": n_agent.role,
                 "energy": n_agent.energy,
                 "opinions": n_agent.node.opinions.copy(),
-                "emergence_contribution": n_agent.emergence_level
+                "emergence_contribution": n_agent.emergence_level,
+                "is_active_this_tick": is_active,
+                "last_action_type": last_action_type,
+                "status": status
             })
             
     # 3. Inbox messages

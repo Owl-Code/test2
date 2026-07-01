@@ -1,0 +1,53 @@
+{
+  "metadata": {
+    "control_mode": "HYBRID",
+    "edge_count": 7,
+    "emergence_level": 0.7400000000000001,
+    "name": "phase2_demo_manual",
+    "node_count": 8,
+    "posture": "HYBRID | ADAPTIVE | trophallaxis_primed | v3.2.1+",
+    "sha256": "0caf96743d26fda250f00db0f1772b508b27f522013ba3208576c28344e69252",
+    "swarm_name": null,
+    "timestamp": 1782926417.0876818
+  },
+  "provenance_note": "fs-graph checkpoint | Hybrid Control Swarm Harness v3.2.1+",
+  "state": {
+    "control_mode": "HYBRID",
+    "edge_count": 7,
+    "emergence_level": 0.7400000000000001,
+    "name": "phase2-demo-swarm",
+    "node_count": 8,
+    "posture": {
+      "adaptive": true,
+      "emergence_target": 0.92,
+      "expert_routing_active": true,
+      "fs_graph_active": true,
+      "homeostasis": "high",
+      "mode": "HYBRID",
+      "trophallaxis_primed": true,
+      "value_alignment_score": 0.92,
+      "version": "3.2.1-dev"
+    },
+    "skill_summary": {
+      "by_category": {
+        "Advanced Reasoning (Tagged)": 5,
+        "Domain & Media": 6,
+        "Graph & Swarm Orchestration": 11,
+        "Language & Writing": 2,
+        "Observability & Reporting": 5,
+        "Persistence & Memory": 3,
+        "Physics & Mechanical": 4,
+        "Planning & Coordination": 3,
+        "Simulation & Evolution": 2
+      },
+      "by_status": {
+        "core": 21,
+        "live": 2,
+        "planned": 18
+      },
+      "last_updated": "2026-07-01",
+      "posture": "HYBRID | ADAPTIVE | trophallaxis_primed | v3.2.1+",
+      "total_skills": 41
+    }
+  }
+}

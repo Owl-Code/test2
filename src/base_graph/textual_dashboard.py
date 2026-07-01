@@ -1,4 +1,4 @@
- """
+"""
 textual_dashboard.py
 Minimal Textual Dashboard for HybridControlSwarmGraph and compatible systems (Phase 3 starter)
 
@@ -16,19 +16,13 @@ from __future__ import annotations
 
 from typing import Any, Dict, Union
 
-try:
-    from .factory import HybridControlSwarmGraph
-except ImportError:
-    HybridControlSwarmGraph = None  # Allow standalone use
-
-
-def _extract_data(source: Union[Dict[str, Any], "HybridControlSwarmGraph"]) -> Dict[str, Any]:
+def _extract_data(source: Any) -> Dict[str, Any]:
     """Normalize input to a standard dict."""
     if isinstance(source, dict):
         return source
-    if HybridControlSwarmGraph is not None and isinstance(source, HybridControlSwarmGraph):
+    if hasattr(source, "to_observability_dict"):
         return source.to_observability_dict()
-    raise TypeError("Input must be a dict or HybridControlSwarmGraph instance")
+    raise TypeError("Input must be a dict or have a to_observability_dict method")
 
 
 def render_textual_dashboard(

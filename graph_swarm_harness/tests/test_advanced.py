@@ -200,12 +200,19 @@ async def test_goal_deletion_and_async_stepping():
     assert "Goal A" not in swarm.active_goals
     assert "Goal B" in swarm.active_goals
     
+    # Mock step_agent execution to prevent real network calls
+    async def mock_step(swarm, agent_id, tool_registry, skill_registry, workspace_root):
+        from base_graph.types import Action, Decision
+        return Decision(
+            node_id=agent_id,
+            selected_action=Action(action_type="idle", parameters={}),
+            confidence=0.9,
+            reason="Mock Step"
+        )
+    orchestrator.agent_executor.step_agent = mock_step
+    
     # Verify async ticking execution compiles and runs
-    try:
-        await orchestrator.run_tick()
-    except Exception as e:
-        # Gracefully pass if local Ollama server is offline
-        pass
+    await orchestrator.run_tick()
 
 @pytest.mark.asyncio
 async def test_agent_permission_gate():

@@ -1,4 +1,4 @@
- """
+"""
 base_graph
 Dynamic Graph Swarm Harness — Foundational Primitives + Phase 1, 2 & 3 SOTA Extensions
 
@@ -25,6 +25,15 @@ from __future__ import annotations
 
 __version__ = "3.2.1-dev"
 __posture__ = "HYBRID | ADAPTIVE | trophallaxis_primed | v3.2.1+"
+
+# =============================================================================
+# Core Primitives & Subgraphs
+# =============================================================================
+
+from .primitives.node import BaseNode, EmergenceNode
+from .primitives.edge import AdaptiveEdge, TrophallaxisEdge
+from .primitives.graph import BaseGraph
+from .types import ControlMode, EdgeType
 
 # =============================================================================
 # Phase 1 SOTA Extensions
@@ -72,10 +81,10 @@ from .trophallaxis_planner_handoff import (
 # Phase 2 - Production Factory & Graph Swarm Harness
 # =============================================================================
 
+from .core.hybrid_swarm import HybridControlSwarmGraph
+
 from .factory import (
-    HybridControlSwarmGraph,
     SwarmPosture,
-    EmergenceNode,
     create_recommended_swarm,
     create_recommended_swarm_cli,
 )
@@ -89,19 +98,19 @@ from .textual_dashboard import (
     print_dashboard,
 )
 
-# =============================================================================
-# Core Primitives (foundational - placeholder for future expansion)
-# =============================================================================
-
-# Future core imports will go here when src/base_graph/core/ is fully populated:
-# from .core.hybrid_swarm import HybridControlSwarmGraph, ControlMode, EmergenceNode
-# from .core.provenance import ProvenanceChain
-# from .primitives.edge import AdaptiveEdge, TrophallaxisEdge
-
 __all__ = [
     # Version & posture
     "__version__",
     "__posture__",
+
+    # Core Primitives & Types
+    "BaseNode",
+    "EmergenceNode",
+    "AdaptiveEdge",
+    "TrophallaxisEdge",
+    "BaseGraph",
+    "ControlMode",
+    "EdgeType",
 
     # Skill Registry (Phase 1)
     "SkillCategory",
@@ -137,7 +146,6 @@ __all__ = [
     # Production Factory & Graph Swarm Harness (Phase 2)
     "HybridControlSwarmGraph",
     "SwarmPosture",
-    "EmergenceNode",
     "create_recommended_swarm",
     "create_recommended_swarm_cli",
 

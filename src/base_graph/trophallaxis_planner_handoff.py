@@ -1,4 +1,4 @@
- """
+"""
 trophallaxis_planner_handoff.py
 Trophallaxis-Aware Resource Exchange During Planning Handoffs
 

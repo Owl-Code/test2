@@ -73,6 +73,10 @@ class AgentExecutionLoop:
         agent.node.local_memory["last_thought"] = thought
         agent.node.local_memory["last_decision_reason"] = rationale
         agent.node.local_memory["last_confidence"] = confidence
+        agent.node.local_memory["last_action"] = {
+            "action_type": action_name,
+            "parameters": args
+        }
 
         # 5. Route Action to Skill or Tool
         decision_action = Action(action_type=action_name, parameters=args)

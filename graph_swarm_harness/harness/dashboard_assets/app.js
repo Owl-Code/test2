@@ -75,6 +75,55 @@ function initCytoscape() {
                     'border-color': '#8b5cf6',
                     'border-width': '3px'
                 }
+            },
+            {
+                selector: 'edge[type = "TROPHALLAXIS"]',
+                style: {
+                    'line-color': '#10b981',
+                    'target-arrow-color': '#10b981'
+                }
+            },
+            {
+                selector: 'edge[type = "RESOURCE"]',
+                style: {
+                    'line-color': '#10b981',
+                    'target-arrow-color': '#10b981'
+                }
+            },
+            {
+                selector: 'edge[type = "EMERGENCE"]',
+                style: {
+                    'line-color': '#f59e0b',
+                    'target-arrow-color': '#f59e0b'
+                }
+            },
+            {
+                selector: 'edge[type = "STIGMERGY"]',
+                style: {
+                    'line-color': '#f59e0b',
+                    'target-arrow-color': '#f59e0b'
+                }
+            },
+            {
+                selector: 'edge[type = "INFLUENCE"]',
+                style: {
+                    'line-color': '#f59e0b',
+                    'target-arrow-color': '#f59e0b'
+                }
+            },
+            {
+                selector: 'edge[type = "COMMAND"]',
+                style: {
+                    'line-color': '#06b6d4',
+                    'target-arrow-color': '#06b6d4'
+                }
+            },
+            {
+                selector: 'edge[type = "COMMUNICATION"]',
+                style: {
+                    'line-color': '#9ca3af',
+                    'target-arrow-color': '#9ca3af'
+                }
             }
         ],
         layout: {
@@ -82,6 +131,29 @@ function initCytoscape() {
             animate: true,
             fit: true,
             padding: 30
+        }
+    });
+
+    // Node details tap handler
+    cy.on('tap', 'node', function(evt) {
+        const node = evt.target;
+        const data = node.data();
+        
+        document.getElementById('node-detail-id').innerText = data.id;
+        document.getElementById('node-detail-role').innerText = (data.role || 'unknown').toUpperCase();
+        document.getElementById('node-detail-energy').innerText = `${data.energy.toFixed(1)}%`;
+        document.getElementById('node-detail-opinion').innerText = data.opinion !== undefined ? data.opinion.toFixed(2) : '0.00';
+        document.getElementById('node-detail-status').innerText = data.is_active ? 'Active ⚡' : 'Inactive (resting)';
+        document.getElementById('node-detail-status').style.color = data.is_active ? 'var(--accent-green)' : 'var(--text-muted)';
+        document.getElementById('node-detail-mode').innerText = data.mode || 'BASE';
+        document.getElementById('node-detail-thought').innerText = data.last_thought || 'No thought history';
+        
+        document.getElementById('node-details').style.display = 'flex';
+    });
+    
+    cy.on('tap', function(evt) {
+        if (evt.target === cy) {
+            document.getElementById('node-details').style.display = 'none';
         }
     });
 }
@@ -213,13 +285,23 @@ function updateDashboard(state) {
     updateRoleDropdown(roleTemplates);
     populateRoleInputs();
     
+    // Update Max Agents input if not active
+    const limitInput = document.getElementById('agent-limit');
+    if (limitInput && document.activeElement !== limitInput) {
+        limitInput.value = state.max_active_agents_per_tick;
+    }
+    
     // Render Cy Nodes/Edges
     const cyNodes = state.agents.map(a => ({
         data: {
             id: a.id,
             label: `${a.id.substring(6)} (${a.role})`,
             energy: a.energy,
-            role: a.role
+            role: a.role,
+            opinion: a.opinion,
+            is_active: a.is_active,
+            mode: a.mode,
+            last_thought: a.last_thought
         }
     }));
     
@@ -229,6 +311,7 @@ function updateDashboard(state) {
             source: e.source,
             target: e.target,
             strength: e.strength,
+            type: e.type,
             label: `${e.type.substring(0,4)} (${e.weight.toFixed(1)})`
         }
     }));
@@ -678,6 +761,27 @@ async function deleteGoal(goal) {
 
 document.getElementById('select-role').addEventListener('change', populateRoleInputs);
 document.getElementById('btn-layout').addEventListener('click', () => cy.layout({ name: 'cose', animate: true }).run());
+
+// Agent Limit Change Handler
+document.getElementById('agent-limit').addEventListener('change', async (e) => {
+    const val = parseInt(e.target.value);
+    if (isNaN(val) || val < 1) return;
+    
+    appendLog(`System Action: Updating max active agents per tick limit to ${val}`);
+    try {
+        const response = await fetch('/api/config', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ max_active_agents_per_tick: val })
+        });
+        const res = await response.json();
+        if (res.status === 'success') {
+            appendLog(`Success: Active agent limit updated to ${val}`);
+        }
+    } catch (err) {
+        appendLog(`Error updating active agent limit: ${err}`);
+    }
+});
 
 // On page load
 window.addEventListener('DOMContentLoaded', () => {

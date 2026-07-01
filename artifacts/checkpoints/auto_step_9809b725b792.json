@@ -1,0 +1,20 @@
+{
+  "metadata": {
+    "control_mode": "HYBRID",
+    "edge_count": 0,
+    "emergence_level": 0.7400000000000001,
+    "name": "auto_step",
+    "node_count": 0,
+    "posture": "HYBRID | ADAPTIVE | trophallaxis_primed | v3.2.1+",
+    "sha256": "f8b1adf6ce7db6a22268c37fee4e046f7200ab763dde6c231644f43a1f52ed49",
+    "swarm_name": null,
+    "timestamp": 1782926417.0866647
+  },
+  "provenance_note": "fs-graph checkpoint | Hybrid Control Swarm Harness v3.2.1+",
+  "state": {
+    "control_mode": "HYBRID",
+    "emergence_level": 0.7400000000000001,
+    "last_step_result": "{'step': 'hybrid_step', 'mode': 'HYBRID', 'emergence': 0.74, 'experts_activated': ['Graph & Swarm Orchestration', 'Persistence & Memory'], 'active_nodes': 8}",
+    "node_count": 0
+  }
+}

@@ -28,6 +28,9 @@ active_connections: List[WebSocket] = []
 class GoalPayload(BaseModel):
     goal: str
 
+class ConfigPayload(BaseModel):
+    max_active_agents_per_tick: int
+
 class RoleTemplatePayload(BaseModel):
     role: str
     skills: List[str]
@@ -48,7 +51,9 @@ def get_swarm_state_payload() -> Dict[str, Any]:
             "skills": list(a.active_skills),
             "tools": list(a.available_tools),
             "last_thought": a.node.local_memory.get("last_decision_reason", "Idling..."),
-            "last_result": a.node.local_memory.get("last_action_result", "None")
+            "last_result": a.node.local_memory.get("last_action_result", "None"),
+            "is_active": a.node.state.get("is_active", False),
+            "mode": a.node.control_mode.value
         })
         
     edges = []
@@ -83,7 +88,8 @@ def get_swarm_state_payload() -> Dict[str, Any]:
         "audit_trail": audit,
         "role_templates": swarm.role_templates,
         "chat_replies": list(swarm.chat_replies),
-        "intra_swarm_messages": list(getattr(swarm, "intra_swarm_messages", []))
+        "intra_swarm_messages": list(getattr(swarm, "intra_swarm_messages", [])),
+        "max_active_agents_per_tick": orchestrator.config.get("max_active_agents_per_tick", 2)
     }
 
 async def broadcast_state():
@@ -172,6 +178,12 @@ async def update_role(payload: RoleTemplatePayload):
     )
     await broadcast_state()
     return {"status": "success", "role_templates": orchestrator.swarm.role_templates}
+
+@app.post("/api/config")
+async def update_config(payload: ConfigPayload):
+    orchestrator.config["max_active_agents_per_tick"] = payload.max_active_agents_per_tick
+    await broadcast_state()
+    return {"status": "success", "max_active_agents_per_tick": orchestrator.config["max_active_agents_per_tick"]}
 
 # Background continuous loop state
 is_running = False

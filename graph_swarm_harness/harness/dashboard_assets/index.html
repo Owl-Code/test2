@@ -325,14 +325,65 @@
     <div class="main-container">
         <!-- Left Column: Graph Visualizer and Workspace Configuration tabs -->
         <div class="column">
-            <div class="panel" style="flex: 1.8;">
+            <div class="panel" style="flex: 1.8; position: relative;">
                 <div class="panel-header">
                     <span>Swarm Network Topology</span>
                     <div class="controls-row">
                         <button class="btn-secondary" id="btn-layout">Re-Layout</button>
                     </div>
                 </div>
-                <div id="cy-container"></div>
+                <div id="cy-container" style="flex: 1; width: 100%;"></div>
+                
+                <!-- Details Overlay card on click -->
+                <div id="node-details" style="position: absolute; top: 55px; right: 20px; width: 240px; background: rgba(17, 24, 39, 0.9); border: 1px solid var(--border-color); box-shadow: 0 10px 25px rgba(0,0,0,0.5); border-radius: 8px; backdrop-filter: blur(12px); padding: 12px; display: none; flex-direction: column; gap: 8px; z-index: 8;">
+                    <div style="font-size: 15px; font-weight: 600; display: flex; justify-content: space-between; color: var(--accent-cyan);">
+                        <span id="node-detail-id">node_id</span>
+                        <span id="node-detail-mode" style="font-size: 10px; border: 1px solid var(--accent-cyan); padding: 1px 4px; border-radius: 3px; color: var(--accent-cyan);">MODE</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-size: 12px;">
+                        <span style="color: var(--text-muted);">Role:</span>
+                        <span id="node-detail-role" style="font-weight: 600;">COORDINATOR</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-size: 12px;">
+                        <span style="color: var(--text-muted);">Energy Resource:</span>
+                        <span id="node-detail-energy">0.0%</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-size: 12px;">
+                        <span style="color: var(--text-muted);">Opinion:</span>
+                        <span id="node-detail-opinion">0.00</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-size: 12px;">
+                        <span style="color: var(--text-muted);">Status:</span>
+                        <span id="node-detail-status">Active</span>
+                    </div>
+                    <div style="display: flex; flex-direction: column; font-size: 11px; margin-top: 4px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 4px;">
+                        <span style="color: var(--text-muted); font-weight: 600; margin-bottom: 2px;">Last Thought:</span>
+                        <span id="node-detail-thought" style="font-style: italic; color: #d1d5db; max-height: 50px; overflow-y: auto;">None</span>
+                    </div>
+                </div>
+
+                <!-- Legend Overlay -->
+                <div class="legend-overlay" style="position: absolute; bottom: 20px; left: 20px; background: rgba(17, 24, 39, 0.9); border: 1px solid var(--border-color); padding: 10px; border-radius: 8px; backdrop-filter: blur(12px); font-size: 11px; display: flex; flex-direction: column; gap: 6px; pointer-events: none; z-index: 5;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div style="width: 12px; height: 12px; border-radius: 2px; background-color: #10b981;"></div>
+                        <span>Trophallaxis Edge (Energy Flow)</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div style="width: 12px; height: 12px; border-radius: 2px; background-color: #f59e0b;"></div>
+                        <span>Emergence Edge (Stigmergy path weight)</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div style="width: 12px; height: 12px; border-radius: 2px; background-color: #06b6d4;"></div>
+                        <span>Command Edge (Hierarchical signals)</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div style="width: 12px; height: 12px; border-radius: 2px; background-color: #9ca3af;"></div>
+                        <span>Communication Edge (DeGroot, etc)</span>
+                    </div>
+                    <div style="border-top: 1px solid rgba(255,255,255,0.05); margin-top: 4px; padding-top: 4px; font-size: 10px; color: var(--text-muted);">
+                        Nodes: Rect (Coordinator), Ellipse (Coder), Diamond (Reviewer), Hex (Designer)
+                    </div>
+                </div>
             </div>
             
             <div class="panel" style="flex: 1.2;">
@@ -421,6 +472,8 @@
                 <div class="panel-header">
                     <span>Orchestration Control Panel</span>
                     <div class="controls-row">
+                        <label for="agent-limit" style="font-size: 13px; color: var(--text-muted);">Max Agents:</label>
+                        <input type="number" id="agent-limit" min="1" max="20" value="2" style="width: 50px; padding: 4px; text-align: center; border-radius: 6px; background: rgba(255,255,255,0.04); border: 1px solid var(--border-color); color: var(--text-main);">
                         <select id="loop-delay" style="width: auto;">
                             <option value="2.0">2s loop</option>
                             <option value="4.0" selected>4s loop</option>

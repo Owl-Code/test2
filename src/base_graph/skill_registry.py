@@ -1,4 +1,4 @@
- """
+"""
 skill_registry.py
 Dynamic Skill Registry for the Hybrid Control Swarm Harness (base_graph)
 

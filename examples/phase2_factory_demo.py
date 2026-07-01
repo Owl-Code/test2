@@ -1,4 +1,4 @@
- """
+"""
 phase2_factory_demo.py
 Demonstration of the Phase 2 Production Factory (create_recommended_swarm)
 
