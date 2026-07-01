@@ -138,6 +138,34 @@ class HybridControlSwarmGraph:
         self.posture.emergence_target = round(self.emergence_level, 2)
         return self.posture
 
+    def get_health(self) -> Dict[str, Any]:
+        """Return a concise health / observability snapshot of the swarm."""
+        return {
+            "name": self.name,
+            "control_mode": self.control_mode,
+            "emergence_level": round(self.emergence_level, 3),
+            "node_count": len(self.nodes),
+            "edge_count": len(self.edges),
+            "last_checkpoint": self._checkpoint_sha[:16] + "..." if self._checkpoint_sha else None,
+            "posture": {
+                "mode": self.posture.mode,
+                "emergence_target": self.posture.emergence_target,
+                "expert_routing_active": self.posture.expert_routing_active,
+                "trophallaxis_primed": self.posture.trophallaxis_primed,
+            },
+            "skill_count": self._skill_summary.get("total_skills", 0),
+        }
+
+    def get_metrics(self) -> Dict[str, Any]:
+        """Extended metrics for long-horizon observability (Phase 3 ready)."""
+        health = self.get_health()
+        health["metrics"] = {
+            "emergence_trend": "increasing" if self.emergence_level > 0.7 else "stable",
+            "hybrid_mode_ratio": 1.0 if self.control_mode == "HYBRID" else 0.5,
+            "expert_utilization": len(health.get("last_experts", [])),
+        }
+        return health
+
     def add_node(self, node_id: str, **kwargs) -> EmergenceNode:
         """Add a new node to the swarm."""
         node = EmergenceNode(id=node_id, **kwargs)
@@ -243,4 +271,5 @@ if __name__ == "__main__":
     print("Posture:", swarm.get_posture().__dict__)
     result = swarm.hybrid_step({"task_complexity": 0.9})
     print("First hybrid_step result:", result)
+    print("Health snapshot:", swarm.get_health())
     print("Active nodes:", len(swarm.nodes))
