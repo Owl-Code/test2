@@ -5,7 +5,7 @@ Demonstration of the Phase 2 Production Factory (create_recommended_swarm)
 Shows the recommended bootstrap in action:
 - Creating a swarm with create_recommended_swarm(num_agents=64)
 - Running hybrid steps with expert routing and auto-checkpointing
-- Inspecting posture, nodes, checkpoints, and health/metrics
+- Inspecting posture, health, metrics, and the integrated textual dashboard
 
 Run with:
     python examples/phase2_factory_demo.py
@@ -24,7 +24,7 @@ from base_graph import (
 
 def main():
     print("=" * 72)
-    print("base_graph Phase 2 Factory Demo — create_recommended_swarm + Observability")
+    print("base_graph Phase 2 Factory Demo — create_recommended_swarm + Graph Swarm Harness")
     print("Posture: HYBRID | ADAPTIVE | trophallaxis_primed | v3.2.1-dev")
     print("=" * 72)
 
@@ -52,35 +52,23 @@ def main():
               f"experts={len(result['experts_activated'])}, "
               f"active_nodes={result['active_nodes']}")
 
-    # 3. Show new observability methods (Phase 2 enhancement)
-    print("\n[3] Observability: get_health() and get_metrics()")
+    # 3. Observability
+    print("\n[3] Observability (get_health + get_metrics)")
     health = swarm.get_health()
-    print(f"    Health snapshot:")
-    for k, v in health.items():
-        if isinstance(v, dict):
-            print(f"      {k}:")
-            for sk, sv in v.items():
-                print(f"        {sk}: {sv}")
-        else:
-            print(f"      {k}: {v}")
+    print(f"    Emergence: {health['emergence_level']:.3f} | Nodes: {health['node_count']} | Mode: {health['control_mode']}")
 
-    metrics = swarm.get_metrics()
-    print(f"    Metrics trend: {metrics.get('metrics', {})}")
+    # 4. Integrated Graph Swarm Harness Dashboard (new render_dashboard method)
+    print("\n[4] Integrated Graph Swarm Harness Dashboard")
+    print(swarm.render_dashboard())
 
-    # 4. Manual checkpoint
-    print("\n[4] Manual checkpoint")
+    # 5. Manual checkpoint
+    print("\n[5] Manual checkpoint")
     manual_sha = swarm.checkpoint(name="phase2_demo_manual")
     print(f"    Manual checkpoint SHA: {manual_sha[:16]}...")
 
-    # 5. Direct access to Phase 1 capabilities still works
-    print("\n[5] Direct access to Phase 1 modules still works")
-    from base_graph import list_available_skills, SkillCategory
-    reasoning = list_available_skills(category=SkillCategory.ADVANCED_REASONING)
-    print(f"    Advanced Reasoning skills available: {len(reasoning)}")
-
     print("\n" + "=" * 72)
-    print("Phase 2 Factory Demo Complete — create_recommended_swarm is fully operational.")
-    print("The swarm now has nodes, edges, expert routing, auto-checkpointing, health/metrics, and posture.")
+    print("Phase 2 Factory Demo Complete — create_recommended_swarm + Graph Swarm Harness is fully operational.")
+    print("The harness now includes nodes, expert routing, auto-checkpointing, health/metrics, and integrated textual dashboard.")
     print("=" * 72)
 
 
