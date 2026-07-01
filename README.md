@@ -84,36 +84,52 @@ source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 pip install -e .[dev]
 ```
 
-### Quickstart Example
+### Quickstart Example (Phase 1)
 Create a simple swarm and run opinion consensus:
 
 ```python
 from base_graph import HybridControlSwarmGraph, EmergenceNode, ControlMode
-from base_graph.utils import TerminalDashboard
+from base_graph import list_available_skills, create_emergence_gated_router
 
-# 1. Initialize Swarm
-swarm = HybridControlSwarmGraph(name="quickstart-swarm")
+# List available skills (Phase 1+)
+skills = list_available_skills()
+print(f"Available skills: {len(skills)}")
 
-# 2. Add connected nodes
-n1 = EmergenceNode(id="node_a", opinions={"main": 1.0}, control_mode=ControlMode.DECENTRALIZED)
-n2 = EmergenceNode(id="node_b", opinions={"main": -1.0}, control_mode=ControlMode.DECENTRALIZED)
-swarm.graph.add_node(n1)
-swarm.graph.add_node(n2)
-
-# 3. Add edge
-from base_graph import AdaptiveEdge
-swarm.graph.add_edge(AdaptiveEdge(source_id="node_a", target_id="node_b"))
-
-# 4. Simulate steps
-for _ in range(10):
-    # Shift opinions toward consensus
-    n1.opinions["main"] += 0.1 * (n2.opinions["main"] - n1.opinions["main"])
-    n2.opinions["main"] += 0.1 * (n1.opinions["main"] - n2.opinions["main"])
-    swarm.hybrid_step()
-
-# 5. Monitor results
-print(TerminalDashboard.render(swarm))
+# Create router
+router = create_emergence_gated_router(k=3)
 ```
+
+### Phase 2 — Recommended Production Bootstrap (New in v3.2.1+)
+
+The canonical way to create a production-grade swarm:
+
+```python
+from base_graph import create_recommended_swarm, HybridControlSwarmGraph
+
+# Create a fully wired recommended swarm (Phase 2 factory)
+swarm: HybridControlSwarmGraph = create_recommended_swarm(
+    num_agents=128,
+    name="my-production-swarm",
+    use_fs_graph=True,
+    enable_expert_routing=True,
+    enable_trophallaxis_handoff=True,
+)
+
+print(f"Created: {swarm.name}")
+print(f"Initial nodes: {len(swarm.nodes)}")
+print(f"Posture: {swarm.get_posture().__dict__}")
+
+# Run hybrid steps (includes expert routing + auto-checkpointing)
+for _ in range(5):
+    result = swarm.hybrid_step({"task_complexity": 0.9})
+    print(f"Emergence: {result['emergence']:.3f} | Experts: {result['experts_activated']}")
+
+# Manual checkpoint
+sha = swarm.checkpoint("my_checkpoint")
+print(f"Checkpoint: {sha[:16]}...")
+```
+
+See `examples/phase2_factory_demo.py` for a complete runnable example.
 
 ---
 
@@ -139,11 +155,11 @@ This script will execute:
 
 This repository is under active **SOTA evolution** on the `grok_branch`. The [SOTA Development Plan](SOTA_DEVELOPMENT_PLAN.md) defines a 6-phase roadmap with a strict **push-every-update** protocol:
 
-- **Phase 0 (Current)**: Bootstrap visibility — this plan + CI + pyproject enhancements (just pushed).
-- **Phase 1**: Full 56-skill dynamic registry, expert routing hybrid, fs-graph checkpoints, trophallaxis-planner-handoff-hook.
-- **Phase 2**: `create_recommended_swarm(num_agents=512)` production factory.
-- **Phase 3**: Live `dashboard_graph`, `obs_metrics_long_horizon_graph`, `meta_skill_evolver`, `simulation_harness_graph`.
-- **Phase 4-6**: Advanced multi-scale planning (planner_graph + mcp_graph), constitutional alignment, provenance-causal tracing, automated reporting (docx/pdf/pptx), full CI/CD + property testing.
+**Phase 1 (Complete)**: Dynamic 56-skill registry, SHA-256 fs-graph checkpointing, EmergenceGatedRouter (MoE), TrophallaxisPlannerHandoffHook, clean package exposure, and runnable showcase.
+
+**Phase 2 (In Progress)**: Production `create_recommended_swarm(num_agents=512)` factory with wired Phase 1 capabilities, improved `HybridControlSwarmGraph` skeleton (nodes, edges, `hybrid_step`, posture), and runnable demo.
+
+**Phase 3+ (Planned)**: Live `dashboard_graph` + long-horizon metrics, `meta_skill_evolver`, `simulation_harness_graph`, multi-scale planning (`planner_graph` + `mcp_graph`), constitutional alignment, and automated reporting.
 
 **All changes are pushed immediately** with conventional commits containing posture, provenance SHA256, and skill alignment notes. High-stakes changes require explicit human confirmation.
 
